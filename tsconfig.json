@@ -23,10 +23,11 @@
     "paths": {
       "@*": ["src/*"],
       "@api/*": ["src/api/*"],
-      "@state/*": ["src/state/*"]
+      "@state/*": ["src/state/*"],
+      "@components/*": ["src/components/*"]
       // "@firebase/*": ["src/firebase/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "typings.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

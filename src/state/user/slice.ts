@@ -1,5 +1,5 @@
-import { IUser, IUserState } from './types';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { IUserState } from './types';
+import { createSlice } from '@reduxjs/toolkit';
 import { signInWithGoogle, signOut, verifyAuthState } from './thunks';
 
 const initialState: IUserState = {

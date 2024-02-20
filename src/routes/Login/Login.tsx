@@ -4,6 +4,7 @@ import { selectUser } from '@state/user/selectors';
 import { signInWithGoogle, signOut } from '@state/user/thunks';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { FC } from 'react';
+import classes from './Login.module.scss';
 
 type LoginAndPassword = {
   username: string;
@@ -29,7 +30,7 @@ export const Login: FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: '300px', margin: 'auto', marginTop: '50px' }}>
+    <div>
       {!user ? (
         <Form name="login_form" initialValues={{ remember: true }} onFinish={onFinish}>
           <Form.Item

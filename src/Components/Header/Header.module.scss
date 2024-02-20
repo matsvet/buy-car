@@ -11,4 +11,10 @@
     font-weight: 700;
     font-family: 'Courier New', Courier, monospace; // todo явно другой выбрать
   }
+
+  &__buttonsBlock {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+  }
 }

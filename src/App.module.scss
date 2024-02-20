@@ -50,18 +50,17 @@
   &__mainContent {
     height: 93dvh;
     display: flex;
-    align-items: center;
     justify-content: center;
 
     &__sidebar {
       width: 23dvw;
       height: 100%;
+      overflow-y: auto;
     }
 
     &__withoutSidebar {
       width: 77dvw;
-      margin: auto;
-      // height: 100%;
+      overflow-y: auto;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { App, Button } from 'antd';
+import { Button } from 'antd';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './Header.module.scss';
@@ -12,11 +12,17 @@ const Header: FC = () => {
   const goToLogin = () => {
     navigate('/login');
   };
+  const goToSettings = () => {
+    navigate('/settings');
+  };
 
   return (
     <div className={classes.root}>
       <div className={classes.root__logo}>BuyCar</div>
-      <Button onClick={goToLogin}>Профиль</Button>
+      <div className={classes.root__buttonsBlock}>
+        <Button onClick={goToSettings}>Настройки</Button>
+        <Button onClick={goToLogin}>Профиль</Button>
+      </div>
     </div>
   );
 };

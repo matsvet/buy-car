@@ -6,20 +6,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { FC } from 'react';
 import classes from './Login.module.scss';
 
-type LoginAndPassword = {
-  username: string;
-  password: string;
-};
+// type LoginAndPassword = {
+//   username: string;
+//   password: string;
+// };
 
 export const Login: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const user = useSelector(selectUser);
 
-  const onFinish = (values: LoginAndPassword) => {
-    console.log('Received values of form: ', values);
-    // Здесь вы можете обработать данные формы, например, отправить их на сервер
-  };
+  const onFinish = () =>
+    // values: LoginAndPassword
+    {
+      // console.log('Received values of form: ', values);
+      // Здесь можно обработать данные формы, например, отправить их на сервер
+    };
 
   const handleSignInWithGoogle = () => {
     dispatch(signInWithGoogle());
@@ -30,7 +32,7 @@ export const Login: FC = () => {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       {!user ? (
         <Form name="login_form" initialValues={{ remember: true }} onFinish={onFinish}>
           <Form.Item
@@ -43,19 +45,19 @@ export const Login: FC = () => {
             <Input.Password placeholder="Пароль" />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+            <Button type="primary" htmlType="submit">
               Войти
             </Button>
           </Form.Item>
-          <Button type="primary" onClick={handleSignInWithGoogle} style={{ width: '100%' }}>
+          <Button type="primary" onClick={handleSignInWithGoogle}>
             Войти через Google
           </Button>
         </Form>
       ) : (
-        <div>
+        <div className={classes.root__profileBlock}>
           <div>{user?.displayName}</div>
           <div>{user?.email}</div>
-          <Button type="primary" onClick={handleSignOut} style={{ width: '100%' }}>
+          <Button type="primary" onClick={handleSignOut}>
             Выйти
           </Button>
         </div>

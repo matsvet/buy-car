@@ -1,10 +1,31 @@
 import './App.css';
+import { AppDispatch } from '@store';
 import { Header } from './routes/Header/Header';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { Spin } from 'antd';
+import { selectVerifyAuthLoading } from '@state/user/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { verifyAuthState } from '@state/user/thunks';
 import IncorrectRoute from './routes/IncorrectRoute';
 import Login from './routes/Login';
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const verifyAuthLoading = useSelector(selectVerifyAuthLoading);
+
+  useEffect(() => {
+    dispatch(verifyAuthState());
+  }, [dispatch]);
+
+  if (verifyAuthLoading)
+    return (
+      <div>
+        <Spin />
+      </div>
+    );
+
   return (
     <>
       <Header />
@@ -31,6 +52,6 @@ function App() {
       </Routes>
     </>
   );
-}
+};
 
 export default App;

@@ -1,13 +1,16 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { signInWithGoogle, signOut } from './thunks';
+import { IUser, IUserState } from './types';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { signInWithGoogle, signOut, verifyAuthState } from './thunks';
+
+const initialState: IUserState = {
+  user: null,
+  loading: false,
+  error: null,
+};
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    user: null,
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     clearUser: (state) => {
       state.user = null;
@@ -18,19 +21,40 @@ export const userSlice = createSlice({
       .addCase(signInWithGoogle.pending, (state) => {
         state.loading = true;
       })
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .addCase(signInWithGoogle.fulfilled, (state, action: PayloadAction<any>) => {
-        // TODO
+      .addCase(signInWithGoogle.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
       })
       .addCase(signInWithGoogle.rejected, (state, action) => {
         state.loading = false;
-        // @ts-expect-error
-        state.error = action.payload; // TODO
+        if (action.payload) {
+          const payload = action.payload as { error: string };
+          state.error = payload.error;
+        } else {
+          state.error = action.error.message ? action.error.message : 'Unknown error occurred';
+        }
       })
       .addCase(signOut.fulfilled, (state) => {
         state.user = null;
+      })
+      .addCase(verifyAuthState.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(verifyAuthState.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(verifyAuthState.rejected, (state, action) => {
+        state.loading = false;
+        state.user = null;
+        if (action.payload) {
+          const payload = action.payload as { error: string };
+          state.error = payload.error;
+        } else {
+          state.error = action.error.message ? action.error.message : 'Unknown error occurred';
+        }
       });
   },
 });

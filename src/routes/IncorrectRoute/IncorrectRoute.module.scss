@@ -1,0 +1,27 @@
+.incorrectRouteWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+
+  .alertWindow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60vw;
+    height: 30vh;
+
+    background-color: #fbeae8;
+
+    border: 1px solid transparent;
+    border-radius: 20px;
+
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+    .alertText {
+      font-weight: 500;
+      font-size: 30px;
+    }
+  }
+}

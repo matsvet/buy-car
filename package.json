@@ -4,24 +4,38 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "vite --mode development --config ./vite.config.ts",
+    "build": "vite build --config ./vite.config.ts",
+    "preview": "vite --mode development build --config ./vite.config.ts  && vite preview --config ./vite.config.ts",
     "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.1",
+    "antd": "^5.14.1",
+    "firebase": "^10.8.0",
+    "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-redux": "^9.1.0",
+    "react-router-dom": "^6.22.1",
+    "redux-thunk": "^3.1.0",
+    "vite-plugin-checker": "^0.6.4"
   },
   "devDependencies": {
+    "@types/node": "^20.11.19",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
+    "eslint-plugin-unused-imports": "^3.1.0",
+    "sass": "^1.71.0",
     "typescript": "^5.2.2",
     "vite": "^5.1.0"
   }

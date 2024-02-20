@@ -1,18 +1,101 @@
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
-  ],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended'],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  plugins: [
+    'react',
+    'react-refresh',
+    '@typescript-eslint',
+    'react-hooks',
+    'sort-imports-es6-autofix',
+    'unused-imports',
+  ],
+
   rules: {
-    'react-refresh/only-export-components': [
+    'react/react-in-jsx-scope': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'sort-imports-es6-autofix/sort-imports-es6': [
       'warn',
-      { allowConstantExport: true },
+      {
+        ignoreCase: false,
+        ignoreMemberSort: false,
+        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+      },
     ],
+    'no-param-reassign': 'warn',
+    'import/order': 'off',
+    'no-param-reassign': 'warn',
+    'no-shadow': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'react/jsx-one-expression-per-line': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'no-use-before-define': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    'react/destructuring-assignment': 'off',
+    'react/jsx-filename-extension': [
+      'error',
+      {
+        extensions: ['.tsx'],
+      },
+    ],
+    'import/prefer-default-export': 'off',
+    // 'import/extensions': [
+    //   'error',
+    //   'ignorePackages',
+    //   {
+    //     ts: 'never',
+    //     tsx: 'never',
+    //   },
+    // ],
+    // 'import/no-extraneous-dependencies': [
+    //   'warn',
+    //   {
+    //     devDependencies: false,
+    //     optionalDependencies: false,
+    //     peerDependencies: false,
+    //   },
+    // ],
+    'react/require-default-props': 'off',
+    'react/prop-types': 'off',
+    '@typescript-eslint/ban-ts-comment': 'warn',
+    'react/jsx-props-no-spreading': 'off',
+    'no-debugger': 'warn',
+    'no-restricted-syntax': 'off',
+    'no-underscore-dangle': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    'no-void': 'off',
+    'react/function-component-definition': 'off',
+    'no-restricted-exports': 'off',
+    'no-unstable-nested-components': 'off',
+    '@typescript-eslint/no-unnecessary-type-constraint': 'off',
+    'react/jsx-no-useless-fragment': 'off',
+    'react/no-unstable-nested-components': 'off',
+    'prefer-regex-literals': 'off',
+    'class-methods-use-this': 'off',
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
+    'no-bitwise': 'off',
+    'no-continue': 'off',
+    'no-unused-vars': 'off',
+    // 'no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true }],
+    'no-nested-ternary': 1,
   },
-}
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
+  },
+  overrides: [
+    {
+      files: ['**/*.stories.*'],
+      rules: {
+        'import/no-anonymous-default-export': 'off',
+        'import/no-extraneous-dependencies': 'off',
+        'no-console': 'off',
+      },
+    },
+  ],
+};

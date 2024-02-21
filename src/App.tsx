@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { verifyAuthState } from '@state/user/thunks';
 import FindCars from './routes/FindCars';
 import Header from './Components/Header/Header';
+import Home from './routes/Home';
 import IncorrectRoute from './routes/IncorrectRoute';
 import LeftSidebar from './Components/LeftSidebar/LeftSidebar';
 import Login from './routes/Login';
@@ -50,6 +51,7 @@ const App = () => {
                 <Route path="/find-cars" element={<FindCars />} />
                 <Route path="/favorite-cars" element={<Settings />} />
                 <Route path="/compared-cars" element={<Settings />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/login" element={<Login />} />
 

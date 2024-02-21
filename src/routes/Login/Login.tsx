@@ -45,13 +45,15 @@ export const Login: FC = () => {
             <Input.Password placeholder="Пароль" />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Войти
-            </Button>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <Button type="primary" htmlType="submit">
+                Войти
+              </Button>
+              <Button type="primary" onClick={handleSignInWithGoogle}>
+                Войти через Google
+              </Button>
+            </div>
           </Form.Item>
-          <Button type="primary" onClick={handleSignInWithGoogle}>
-            Войти через Google
-          </Button>
         </Form>
       ) : (
         <div className={classes.root__profileBlock}>

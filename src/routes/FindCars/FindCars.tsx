@@ -29,13 +29,13 @@ export const FindCars: FC = () => {
 
   return (
     <div className={classes.root}>
-      <div>Поиск авто</div>
       <div className={classes.root__filtersContainer}>
         <Collapse
           items={collapseItems}
           defaultActiveKey={['carsFilter']}
           bordered={false}
           expandIconPosition="end"
+          className={classes.filtersCollapse}
         />
       </div>
       <Button onClick={fetchCars}>Найти по фильтрам</Button>

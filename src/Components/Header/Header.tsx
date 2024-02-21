@@ -3,7 +3,11 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './Header.module.scss';
 
-const Header: FC = () => {
+type Props = {
+  currentPage: string;
+};
+
+const Header: FC<Props> = ({ currentPage }) => {
   const navigate = useNavigate();
 
   const goToHome = () => {
@@ -25,6 +29,7 @@ const Header: FC = () => {
         <CarOutlined />
         BuyCar
       </div>
+      <div className={classes.root__currentPage}>{currentPage}</div>
       <div className={classes.root__buttonsBlock}>
         <div className={classes.root__logo} onClick={goToNotifications}>
           <BellOutlined />

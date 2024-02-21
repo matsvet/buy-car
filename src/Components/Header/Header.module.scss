@@ -12,7 +12,7 @@
     color: white;
     font-weight: 700;
     font-size: 20px;
-    font-family: 'Courier New', Courier, monospace; // todo явно другой выбрать
+    font-family: 'Courier New', Courier, monospace;
     cursor: pointer;
 
     &:hover {
@@ -24,5 +24,12 @@
   &__buttonsBlock {
     display: flex;
     gap: 30px;
+  }
+
+  &__currentPage {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Courier New', Courier, monospace;
   }
 }

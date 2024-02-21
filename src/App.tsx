@@ -1,10 +1,10 @@
 import { AppDispatch } from '@store';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { GlobalStyle, pageTitles } from './constants/constants';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Spin } from 'antd';
-import { createGlobalStyle } from 'styled-components';
 import { selectVerifyAuthLoading } from '@state/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { verifyAuthState } from '@state/user/thunks';
 import FindCars from './routes/FindCars';
 import Header from './Components/Header/Header';
@@ -15,13 +15,11 @@ import Login from './routes/Login';
 import Settings from './routes/Settings';
 import classes from './App.module.scss';
 
-const GlobalStyle = createGlobalStyle`
-  .ant-spin-dot-item {
-    background-color: #2a2a2a !important;
-  }
-`;
-
 const App = () => {
+  const [currentAppPage, setCurrentAppPage] = useState('Home');
+
+  const location = useLocation();
+
   const dispatch = useDispatch<AppDispatch>();
 
   const verifyAuthLoading = useSelector(selectVerifyAuthLoading);
@@ -30,11 +28,16 @@ const App = () => {
     dispatch(verifyAuthState());
   }, [dispatch]);
 
+  useEffect(() => {
+    const pageTitle = pageTitles[location.pathname] || 'App';
+    setCurrentAppPage(pageTitle);
+  }, [location.pathname]);
+
   return (
     <div className={classes.root}>
       <GlobalStyle />
       <div className={classes.root__header}>
-        <Header />
+        <Header currentPage={currentAppPage} />
       </div>
       <div className={classes.root__container}>
         <div className={classes.root__container__sidebar}>

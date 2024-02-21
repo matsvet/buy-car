@@ -46,10 +46,10 @@ export const Login: FC = () => {
           </Form.Item>
           <Form.Item>
             <div style={{ display: 'flex', gap: '10px' }}>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" size="large">
                 Войти
               </Button>
-              <Button type="primary" onClick={handleSignInWithGoogle}>
+              <Button type="primary" onClick={handleSignInWithGoogle} size="large">
                 Войти через Google
               </Button>
             </div>
@@ -59,7 +59,7 @@ export const Login: FC = () => {
         <div className={classes.root__profileBlock}>
           <div>{user?.displayName}</div>
           <div>{user?.email}</div>
-          <Button type="primary" onClick={handleSignOut}>
+          <Button type="primary" onClick={handleSignOut} size="large">
             Выйти
           </Button>
         </div>

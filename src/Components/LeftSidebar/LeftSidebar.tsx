@@ -1,5 +1,6 @@
 import { Button } from 'antd';
 import { FC } from 'react';
+import { AlignLeftOutlined, SearchOutlined, StarOutlined, SwapOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import classes from './LeftSidebar.module.scss';
 
@@ -22,18 +23,22 @@ const LeftSidebar: FC = () => {
   return (
     <div className={classes.root}>
       <div className={classes.root__buttonsBlock}>
-        <Button onClick={goToFindCars} size="large">
+        <div className={classes.root__buttonsBlock__option} onClick={goToFindCars}>
+          <SearchOutlined />
           Поиск
-        </Button>
-        <Button onClick={goToFavoriteCars} size="large">
+        </div>
+        <div className={classes.root__buttonsBlock__option} onClick={goToFavoriteCars}>
+          <StarOutlined />
           Избранное
-        </Button>
-        <Button onClick={goToComparedCars} size="large">
+        </div>
+        <div className={classes.root__buttonsBlock__option} onClick={goToComparedCars}>
+          <SwapOutlined />
           Сравнение
-        </Button>
-        <Button onClick={goToNews} size="large">
+        </div>
+        <div className={classes.root__buttonsBlock__option} onClick={goToNews}>
+          <AlignLeftOutlined />
           Новости
-        </Button>
+        </div>
       </div>
     </div>
   );

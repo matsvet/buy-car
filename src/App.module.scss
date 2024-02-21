@@ -15,14 +15,14 @@
     justify-content: center;
 
     &__sidebar {
-      width: 23dvw;
+      width: 18dvw;
       height: 100%;
       overflow-y: auto;
       border-right: 1px solid rgb(209, 209, 209);
     }
 
     &__mainContent {
-      width: 77dvw;
+      width: 82dvw;
 
       &__loader {
         display: flex;

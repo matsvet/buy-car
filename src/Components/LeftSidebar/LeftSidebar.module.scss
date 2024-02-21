@@ -3,12 +3,32 @@
   background-color: #f0f0f0;
   display: flex;
   flex-direction: column;
-  font-size: 22px;
+  font-size: 20px;
 
   &__buttonsBlock {
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 20px;
+
+    &__option {
+      display: flex;
+      gap: 30px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      // font-family: 'Courier New', Courier, monospace; // todo
+      cursor: pointer;
+      padding: 5px 20px;
+      margin: 0 5px;
+
+      &:hover {
+        color: rgb(69, 69, 69);
+        transition: 0.2s;
+        background-color: rgb(225, 225, 225);
+      }
+    }
   }
 }

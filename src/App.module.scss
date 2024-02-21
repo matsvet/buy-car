@@ -1,43 +1,4 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-} */
-
-// .rootLoader {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   margin-top: 25%;
-//   // height: 98vh;
-//   // background-color: rgba(0, 0, 0, 0.2);
-// }
-
-.rootHeaderWithContent {
+.root {
   margin: -8px; // todo переделать кринж
   display: flex;
   flex-direction: column;
@@ -47,7 +8,7 @@
     width: 100%;
   }
 
-  &__mainContent {
+  &__container {
     height: 92dvh;
     display: flex;
     justify-content: center;
@@ -56,11 +17,23 @@
       width: 23dvw;
       height: 100%;
       overflow-y: auto;
+      border-right: 1px solid rgb(209, 209, 209);
     }
 
-    &__withoutSidebar {
+    &__mainContent {
       width: 77dvw;
-      overflow-y: auto;
+
+      &__loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+
+      &__routes {
+        height: 100%;
+        overflow-y: auto;
+      }
     }
   }
 }

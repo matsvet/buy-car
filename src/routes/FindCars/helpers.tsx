@@ -1,7 +1,8 @@
 import { ColumnsType } from 'antd/es/table';
-import { Spin } from 'antd';
+import { CollapseProps, Spin } from 'antd';
 import { TableLocale } from 'antd/es/table/interface';
 import { useState } from 'react';
+import Filters from './Filters';
 
 const ImageLoader = ({ src, alt }: { src: string; alt: string }) => {
   const [loading, setLoading] = useState(true); // Состояние для отслеживания загрузки картинки
@@ -28,6 +29,7 @@ export const columns: ColumnsType<any> = [
     dataIndex: 'imageUrl',
     key: 'imageUrl',
     render: (text, record) => <ImageLoader src={record.imageUrl} alt="Фото" />,
+    width: '10%',
   },
   {
     title: 'Марка',
@@ -53,14 +55,24 @@ export const columns: ColumnsType<any> = [
     title: 'Год',
     dataIndex: 'year',
     key: 'year',
+    width: '5%',
   },
   {
     title: 'Пробег',
     dataIndex: 'mileage',
     key: 'mileage',
+    width: '8%',
   },
 ];
 
 export const locale: TableLocale = {
   emptyText: 'По Вашему запросу ничего не найдено',
 };
+
+export const collapseItems: CollapseProps['items'] = [
+  {
+    key: 'carsFilter',
+    label: 'Фильтры поиска',
+    children: <Filters />,
+  },
+];

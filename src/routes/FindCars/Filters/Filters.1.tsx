@@ -1,10 +1,9 @@
 import { AppDispatch } from '@store';
-import { Button, DatePicker, Form, InputNumber, Select } from 'antd';
+import { Button, Form, InputNumber, Select } from 'antd';
 import { fetchFilter } from '@state/filter/thunks';
 import { selectFilterReducer } from '@state/filter/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { FC, useEffect } from 'react';
-import classes from './Filters.module.scss';
 
 export const Filters: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,8 +13,6 @@ export const Filters: FC = () => {
   const handleSubmit = () => {
     // Вызываем функцию onFilterChange с текущими значениями формы для фильтрации данных
     // onFilterChange(form.getFieldsValue());
-
-    console.log(form.getFieldsValue());
   };
 
   const { filter, loading, error } = useSelector(selectFilterReducer);
@@ -36,7 +33,7 @@ export const Filters: FC = () => {
         </Form.Item>
 
         <Form.Item name="dateRange" label="Диапазон дат">
-          <DatePicker.RangePicker />
+          <RangePicker />
         </Form.Item>
 
         <Form.Item name="numberValue" label="Число">
@@ -45,12 +42,10 @@ export const Filters: FC = () => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Применить фильтры
+            Фильтровать
           </Button>
         </Form.Item>
       </Form>
     </div>
   );
 };
-
-export default Filters;

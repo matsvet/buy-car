@@ -9,11 +9,20 @@ const LeftSidebar: FC = () => {
   const goToFindCars = () => {
     navigate('/find-cars');
   };
+  const goToFavoriteCars = () => {
+    navigate('/favorite-cars');
+  };
+  const goToComparedCars = () => {
+    navigate('/compared-cars');
+  };
 
   return (
     <div className={classes.root}>
-      LeftSidebar
-      <Button onClick={goToFindCars}>Поиск</Button>
+      <div className={classes.root__buttonsBlock}>
+        <Button onClick={goToFindCars}>Поиск</Button>
+        <Button onClick={goToFavoriteCars}>Избранное</Button>
+        <Button onClick={goToComparedCars}>Сравнение</Button>
+      </div>
     </div>
   );
 };

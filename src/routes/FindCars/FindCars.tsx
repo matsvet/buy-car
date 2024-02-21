@@ -1,11 +1,10 @@
 import { AppDispatch } from '@store';
-import { Button, Table } from 'antd';
+import { Button, Collapse, Table } from 'antd';
 import { TableRowSelection } from 'antd/es/table/interface';
-import { columns, locale } from './helpers';
+import { collapseItems, columns, locale } from './helpers';
 import { fetchCars } from '@state/cars/thunks';
 import { selectCarsReducer } from '@state/cars/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import Filters from './Filters';
 import React, { FC, useEffect, useState } from 'react';
 import classes from './FindCars.module.scss';
 
@@ -29,11 +28,18 @@ export const FindCars: FC = () => {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <div>Поиск авто</div>
-      <Filters />
-      <Button onClick={fetchCars}>Применить</Button>
-      <div className={classes.tableContainer}>
+      <div className={classes.root__filtersContainer}>
+        <Collapse
+          items={collapseItems}
+          defaultActiveKey={['carsFilter']}
+          bordered={false}
+          expandIconPosition="end"
+        />
+      </div>
+      <Button onClick={fetchCars}>Найти по фильтрам</Button>
+      <div className={classes.root__tableContainer}>
         {error && <div>{error}</div>}
         <Table
           columns={columns}
@@ -41,7 +47,6 @@ export const FindCars: FC = () => {
           rowSelection={rowSelection}
           locale={locale}
           loading={loading}
-          // scroll={{ y: 400 }}
         />
       </div>
     </div>

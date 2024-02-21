@@ -7,15 +7,16 @@
   background-color: #1f1f1f;
 
   &__logo {
-    padding: 10px;
+    padding: 20px;
     color: white;
     font-weight: 700;
     font-family: 'Courier New', Courier, monospace; // todo явно другой выбрать
+    cursor: pointer;
   }
 
   &__buttonsBlock {
     display: flex;
-    gap: 10px;
-    margin: 10px;
+    gap: 20px;
+    padding: 20px;
   }
 }

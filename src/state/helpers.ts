@@ -27,3 +27,14 @@ export const dispatchErrorHandler = (
     dispatch(action('Unknown error occurred'));
   }
 };
+
+export const sliceCaseErrorHandler = (state, action) => {
+  if (action.payload) {
+    // Если в payload есть данные, предполагаем, что это объект с полем error
+    const payload = action.payload as { error: string };
+    state.error = payload.error;
+  } else {
+    // Если payload нет, используем сообщение из action.error или задаем сообщение по умолчанию
+    state.error = action.error.message ? action.error.message : 'Unknown error occurred';
+  }
+};

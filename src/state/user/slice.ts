@@ -1,6 +1,7 @@
 import { IUserState } from './types';
 import { createSlice } from '@reduxjs/toolkit';
 import { signInWithGoogle, signOut, verifyAuthState } from './thunks';
+import { sliceCaseErrorHandler } from '@state/helpers';
 
 const initialState: IUserState = {
   user: null,
@@ -27,12 +28,7 @@ export const userSlice = createSlice({
       })
       .addCase(signInWithGoogle.rejected, (state, action) => {
         state.loading = false;
-        if (action.payload) {
-          const payload = action.payload as { error: string };
-          state.error = payload.error;
-        } else {
-          state.error = action.error.message ? action.error.message : 'Unknown error occurred';
-        }
+        sliceCaseErrorHandler(state, action);
       })
       .addCase(signOut.fulfilled, (state) => {
         state.user = null;
@@ -49,12 +45,7 @@ export const userSlice = createSlice({
       .addCase(verifyAuthState.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
-        if (action.payload) {
-          const payload = action.payload as { error: string };
-          state.error = payload.error;
-        } else {
-          state.error = action.error.message ? action.error.message : 'Unknown error occurred';
-        }
+        sliceCaseErrorHandler(state, action);
       });
   },
 });

@@ -4,10 +4,11 @@
   justify-content: space-between;
   align-items: center;
 
-  background-color: rgb(235, 255, 255);
+  background-color: #1f1f1f;
 
   &__logo {
     padding: 10px;
+    color: white;
     font-weight: 700;
     font-family: 'Courier New', Courier, monospace; // todo явно другой выбрать
   }

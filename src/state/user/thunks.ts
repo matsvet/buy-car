@@ -1,8 +1,8 @@
 import {
   GoogleAuthProvider,
   signOut as firebaseSignOut,
-  signInWithPopup,
   onAuthStateChanged,
+  signInWithPopup,
 } from 'firebase/auth';
 import { IUser } from './types';
 import { auth } from '../../firebase/firebaseConfig';

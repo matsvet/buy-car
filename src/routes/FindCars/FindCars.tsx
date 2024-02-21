@@ -1,49 +1,24 @@
 import { AppDispatch } from '@store';
 import { Button, Table } from 'antd';
-import { Car } from '@api/searchedCars';
-import { ColumnsType } from 'antd/es/table';
 import { TableRowSelection } from 'antd/es/table/interface';
-import { backURL } from '../../constants';
-import { useDispatch } from 'react-redux';
+import { columns, locale } from './helpers';
+import { fetchCars } from '@state/cars/thunks';
+import { selectCarsReducer } from '@state/cars/selectors';
+import { useDispatch, useSelector } from 'react-redux';
 import Filters from './Filters';
 import React, { FC, useEffect, useState } from 'react';
-import axios from 'axios';
 import classes from './FindCars.module.scss';
-
-// todo странная типизация
-const columns: ColumnsType<any> = [
-  {
-    title: 'Марка',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Где',
-    dataIndex: 'settlement',
-    key: 'settlement',
-  },
-  {
-    title: 'Цена',
-    dataIndex: 'price',
-    key: 'price',
-  },
-];
 
 export const FindCars: FC = () => {
   const [selectedEntitiesKeys, setSelectedEntitiesKeys] = useState<React.Key[]>([]);
-  const [items, setItems] = useState<Car[]>([]);
 
-  // const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
-  // Функция для загрузки всех элементов
-  const fetchCars = async () => {
-    try {
-      const response = await axios.get(`${backURL}/cars`);
-      setItems(response.data);
-    } catch (error) {
-      console.error('Ошибка при получении данных:', error);
-    }
-  };
+  const { cars, loading, error } = useSelector(selectCarsReducer);
+
+  useEffect(() => {
+    dispatch(fetchCars());
+  }, [dispatch]);
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedEntitiesKeys(newSelectedRowKeys);
@@ -53,21 +28,20 @@ export const FindCars: FC = () => {
     onChange: onSelectChange,
   };
 
-  useEffect(() => {
-    fetchCars();
-  }, []);
-
   return (
     <div>
       <div>Поиск авто</div>
       <Filters />
       <Button onClick={fetchCars}>Применить</Button>
       <div className={classes.tableContainer}>
+        {error && <div>{error}</div>}
         <Table
           columns={columns}
-          dataSource={items}
-          // scroll={{ y: 400 }}
+          dataSource={cars ?? undefined}
           rowSelection={rowSelection}
+          locale={locale}
+          loading={loading}
+          // scroll={{ y: 400 }}
         />
       </div>
     </div>

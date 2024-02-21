@@ -1,3 +1,15 @@
+import { CaseReducer } from '@reduxjs/toolkit';
+
+export interface ICarsState {
+  loading: boolean;
+  error: string | null;
+  cars: ICar[] | null;
+}
+
+export type ReducersType = {
+  clearCars: CaseReducer<ICarsState>;
+};
+
 interface Oid {
   $oid: string;
 }
@@ -6,7 +18,7 @@ interface Tag {
   [index: number]: number; // Предполагая, что теги - это массив чисел
 }
 
-export interface Car {
+export interface ICar {
   _id: Oid;
   name: string;
   settlement: string;

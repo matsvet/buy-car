@@ -1,0 +1,57 @@
+.root {
+  display: flex;
+  align-items: center;
+
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+
+  &__loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 48%;
+  }
+
+  &__mainContent {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__sortAndButtons {
+    margin: 20px 0 5px 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    background-color: rgb(242, 242, 242);
+    border-radius: 10px;
+  }
+
+  &__sortBlock {
+  }
+
+  &__buttonsBlock {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.filtersForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  // margin: 0 auto 20px auto;
+}
+
+.pairedContainer {
+  // gap: 0;
+  align-items: center;
+  justify-content: center;
+  // width: 140px;
+}
+
+.btn {
+  margin: 0 auto;
+}

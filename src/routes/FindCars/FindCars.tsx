@@ -1,5 +1,5 @@
 import { AppDispatch } from '@store';
-import { Button, Collapse, Table } from 'antd';
+import { Collapse, Table } from 'antd';
 import { TableRowSelection } from 'antd/es/table/interface';
 import { collapseItems, columns, locale } from './helpers';
 import { fetchCars } from '@state/cars/thunks';
@@ -38,13 +38,12 @@ export const FindCars: FC = () => {
           className={classes.filtersCollapse}
         />
       </div>
-      <Button onClick={fetchCars}>Найти по фильтрам</Button>
       <div className={classes.root__tableContainer}>
         {error && <div>{error}</div>}
         <Table
           columns={columns}
           dataSource={cars ?? undefined}
-          rowSelection={rowSelection}
+          // rowSelection={rowSelection}
           locale={locale}
           loading={loading}
         />

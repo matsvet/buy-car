@@ -14,9 +14,11 @@
     font-size: 20px;
     font-family: 'Courier New', Courier, monospace;
     cursor: pointer;
+    transition: 0.2s;
 
     &:hover {
       color: rgb(155, 155, 155);
+      scale: 1.1;
       transition: 0.2s;
     }
   }

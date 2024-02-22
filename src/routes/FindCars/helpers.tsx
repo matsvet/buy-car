@@ -4,6 +4,7 @@ import { TableLocale } from 'antd/es/table/interface';
 import { CheckCircleOutlined, StarOutlined, TeamOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import Filters from './Filters';
+import classes from './FindCars.module.scss';
 
 const ImageLoader = ({ src, alt }: { src: string; alt: string }) => {
   const [loading, setLoading] = useState(true); // Состояние для отслеживания загрузки картинки
@@ -88,7 +89,7 @@ export const columns: ColumnsType<any> = [
     key: 'favorite',
     render: (text, record) => (
       <Tooltip title="Избранное">
-        <StarOutlined style={{ fontSize: '17px' }} onClick={alert} />
+        <StarOutlined className={classes.compFavBtn} style={{ fontSize: '17px' }} onClick={alert} />
       </Tooltip>
     ),
     align: 'center',
@@ -99,7 +100,7 @@ export const columns: ColumnsType<any> = [
     key: 'compared',
     render: (text, record) => (
       <Tooltip title="Сравнение">
-        <CheckCircleOutlined style={{ fontSize: '17px' }} onClick={alert} />
+        <CheckCircleOutlined className={classes.compFavBtn} style={{ fontSize: '17px' }} onClick={alert} />
       </Tooltip>
     ),
     align: 'center',

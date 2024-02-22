@@ -1,4 +1,6 @@
+import './transitions.css';
 import { AppDispatch } from '@store';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { GlobalStyle, pageTitles } from './constants/constants';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Spin } from 'antd';
@@ -50,18 +52,22 @@ const App = () => {
             </div>
           ) : (
             <div className={classes.root__container__mainContent__routes}>
-              <Routes>
-                <Route path="/find-cars" element={<FindCars />} />
-                <Route path="/favorite-cars" element={<Settings />} />
-                <Route path="/compared-cars" element={<Settings />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/login" element={<Login />} />
+              <SwitchTransition mode="out-in">
+                <CSSTransition key={location.key} classNames="fade" timeout={200} appear={true}>
+                  <Routes location={location}>
+                    <Route path="/find-cars" element={<FindCars />} />
+                    <Route path="/favorite-cars" element={<Settings />} />
+                    <Route path="/compared-cars" element={<Settings />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/login" element={<Login />} />
 
-                {/* обработка некорректного url */}
-                <Route path="/incorrect-route" element={<IncorrectRoute />} />
-                <Route path="*" element={<Navigate to="/incorrect-route" replace />} />
-              </Routes>
+                    {/* обработка некорректного url */}
+                    <Route path="/incorrect-route" element={<IncorrectRoute />} />
+                    <Route path="*" element={<Navigate to="/incorrect-route" replace />} />
+                  </Routes>
+                </CSSTransition>
+              </SwitchTransition>
             </div>
           )}
         </div>

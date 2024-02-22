@@ -1,0 +1,30 @@
+/* Начальное и конечное состояние для появления */
+.fade-appear,
+.fade-enter,
+.fade-exit-done {
+  opacity: 0;
+}
+
+/* Активное состояние для появления и входа */
+.fade-appear-active,
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+
+/* Конечное состояние для появления и входа */
+.fade-appear-done,
+.fade-enter-done {
+  opacity: 1;
+}
+
+/* Начальное состояние для выхода */
+.fade-exit {
+  opacity: 1;
+}
+
+/* Активное и конечное состояние для выхода */
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}

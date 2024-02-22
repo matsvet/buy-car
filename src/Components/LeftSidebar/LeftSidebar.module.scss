@@ -23,9 +23,11 @@
       cursor: pointer;
       padding: 5px 20px;
       margin: 0 5px;
+      transition: 0.2s;
 
       &:hover {
         color: rgb(69, 69, 69);
+        scale: 1.05;
         transition: 0.2s;
         background-color: rgb(225, 225, 225);
       }

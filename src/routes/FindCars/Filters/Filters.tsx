@@ -112,11 +112,7 @@ export const Filters: FC = () => {
               <div className={classes.pairedContainer}>
                 {/* Марка, модель */}
                 <Tooltip title="Марка">
-                  <Form.Item
-                    name="mark"
-                    initialValue={filter?.mark ?? undefined}
-                    className={classes.pairedItem}
-                  >
+                  <Form.Item name="mark" initialValue={filter?.mark ?? undefined}>
                     <Select placeholder="Марка" onSelect={handleSelectMark}>
                       {marks?.map((opt) => (
                         <Select.Option key={opt}>{opt}</Select.Option>
@@ -125,11 +121,7 @@ export const Filters: FC = () => {
                   </Form.Item>
                 </Tooltip>
                 <Tooltip title="Модель">
-                  <Form.Item
-                    name="model"
-                    initialValue={filter?.model ?? undefined}
-                    className={classes.pairedItem}
-                  >
+                  <Form.Item name="model" initialValue={filter?.model ?? undefined}>
                     <Select placeholder="Модель" disabled={!models || models.length === 0 || loadingModels}>
                       {models?.map((opt) => (
                         <Select.Option key={opt}>{opt}</Select.Option>
@@ -141,95 +133,89 @@ export const Filters: FC = () => {
               <div className={classes.pairedContainer}>
                 {/* Цена */}
                 <Tooltip title="Цена, от">
-                  <Form.Item
-                    name="priceMin"
-                    initialValue={filter?.priceMin ?? undefined}
-                    className={classes.pairedItem}
-                  >
-                    <InputNumber min={0} max={1000000000} placeholder="Цена, от" />
+                  <Form.Item name="priceMin" initialValue={filter?.priceMin ?? undefined}>
+                    <InputNumber
+                      className={classes.pairedItem}
+                      min={0}
+                      max={1000000000}
+                      placeholder="Цена, от"
+                    />
                   </Form.Item>
                 </Tooltip>
                 <Tooltip title="Цена, до">
-                  <Form.Item
-                    name="priceMax"
-                    initialValue={filter?.priceMax ?? undefined}
-                    className={classes.pairedItem}
-                  >
-                    <InputNumber min={1} max={1000000000} placeholder="Цена, до" />
+                  <Form.Item name="priceMax" initialValue={filter?.priceMax ?? undefined}>
+                    <InputNumber
+                      className={classes.pairedItem}
+                      min={1}
+                      max={1000000000}
+                      placeholder="Цена, до"
+                    />
                   </Form.Item>
                 </Tooltip>
               </div>
               <div className={classes.pairedContainer}>
                 {/* Пробег */}
                 <Tooltip title="Пробег, от">
-                  <Form.Item
-                    name="mileageMin"
-                    initialValue={filter?.mileageMin ?? undefined}
-                    className={classes.pairedItem}
-                  >
-                    <InputNumber min={0} max={100000000} placeholder="Пробег, от" />
+                  <Form.Item name="mileageMin" initialValue={filter?.mileageMin ?? undefined}>
+                    <InputNumber
+                      className={classes.pairedItem}
+                      min={0}
+                      max={100000000}
+                      placeholder="Пробег, от"
+                    />
                   </Form.Item>
                 </Tooltip>
                 <Tooltip title="Пробег, до">
-                  <Form.Item
-                    name="mileageMax"
-                    initialValue={filter?.mileageMax ?? undefined}
-                    className={classes.pairedItem}
-                  >
-                    <InputNumber min={1} max={100000000} placeholder="Пробег, до" />
+                  <Form.Item name="mileageMax" initialValue={filter?.mileageMax ?? undefined}>
+                    <InputNumber
+                      className={classes.pairedItem}
+                      min={1}
+                      max={100000000}
+                      placeholder="Пробег, до"
+                    />
                   </Form.Item>
                 </Tooltip>
               </div>
               <div className={classes.pairedContainer}>
                 {/* Год */}
                 <Tooltip title="Год, от">
-                  <Form.Item
-                    name="yearMin"
-                    initialValue={filter?.yearMin ?? undefined}
-                    className={classes.pairedItem}
-                  >
-                    <InputNumber min={1900} max={2024} placeholder="Год, от" />
+                  <Form.Item name="yearMin" initialValue={filter?.yearMin ?? undefined}>
+                    <InputNumber className={classes.pairedItem} min={1900} max={2024} placeholder="Год, от" />
                   </Form.Item>
                 </Tooltip>
                 <Tooltip title="Год, до">
-                  <Form.Item
-                    name="yearMax"
-                    initialValue={filter?.yearMax ?? undefined}
-                    className={classes.pairedItem}
-                  >
-                    <InputNumber min={1901} max={2024} placeholder="Год, до" />
+                  <Form.Item name="yearMax" initialValue={filter?.yearMax ?? undefined}>
+                    <InputNumber className={classes.pairedItem} min={1901} max={2024} placeholder="Год, до" />
                   </Form.Item>
                 </Tooltip>
               </div>
               <div className={classes.pairedContainer}>
                 {/* Владельцев */}
                 <Tooltip title="Владельцев, от">
-                  <Form.Item
-                    name="ownersCountMin"
-                    initialValue={filter?.ownersCountMin ?? undefined}
-                    className={classes.pairedItem}
-                  >
-                    <InputNumber min={0} max={10} placeholder="Владельцев, от" />
+                  <Form.Item name="ownersCountMin" initialValue={filter?.ownersCountMin ?? undefined}>
+                    <InputNumber
+                      className={classes.pairedItem}
+                      min={0}
+                      max={10}
+                      placeholder="Владельцев, от"
+                    />
                   </Form.Item>
                 </Tooltip>
                 <Tooltip title="Владельцев, до">
-                  <Form.Item
-                    name="ownersCountMax"
-                    initialValue={filter?.ownersCountMax ?? undefined}
-                    className={classes.pairedItem}
-                  >
-                    <InputNumber min={1} max={10} placeholder="Владельцев, до" />
+                  <Form.Item name="ownersCountMax" initialValue={filter?.ownersCountMax ?? undefined}>
+                    <InputNumber
+                      className={classes.pairedItem}
+                      min={1}
+                      max={10}
+                      placeholder="Владельцев, до"
+                    />
                   </Form.Item>
                 </Tooltip>
               </div>
               <div className={classes.pairedContainer}>
                 {/* Город, владелец */}
                 <Tooltip title="Город">
-                  <Form.Item
-                    name="settlement"
-                    initialValue={filter?.settlement ?? undefined}
-                    className={classes.pairedItem}
-                  >
+                  <Form.Item name="settlement" initialValue={filter?.settlement ?? undefined}>
                     <Select placeholder="Город">
                       {cities?.map((opt) => (
                         <Select.Option key={opt}>{opt}</Select.Option>
@@ -238,11 +224,7 @@ export const Filters: FC = () => {
                   </Form.Item>
                 </Tooltip>
                 <Tooltip title="Владелец">
-                  <Form.Item
-                    name="isShowroom"
-                    initialValue={filter?.isShowroom ?? undefined}
-                    className={classes.pairedItem}
-                  >
+                  <Form.Item name="isShowroom" initialValue={filter?.isShowroom ?? undefined}>
                     <Select placeholder="Владелец">
                       <Select.Option key="all">Все</Select.Option>
                       <Select.Option key="person">Частник</Select.Option>
@@ -261,7 +243,10 @@ export const Filters: FC = () => {
                 <Select placeholder="Сортировать по">
                   <Select.Option key="person">Возрастанию цены</Select.Option>
                   <Select.Option key="showroom">Убыванию цены</Select.Option>
-                  <Select.Option key="all">Все</Select.Option>
+                  <Select.Option key="showroom">Сначала новые</Select.Option>
+                  <Select.Option key="showroom">Сначала старые</Select.Option>
+                  <Select.Option key="person">Возрастанию пробега</Select.Option>
+                  <Select.Option key="showroom">Убыванию пробега</Select.Option>
                 </Select>
               </Tooltip>
             </div>

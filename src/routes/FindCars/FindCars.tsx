@@ -1,31 +1,31 @@
 import { AppDispatch } from '@store';
 import { Collapse, Table } from 'antd';
-import { TableRowSelection } from 'antd/es/table/interface';
 import { collapseItems, columns, locale } from './helpers';
-import { fetchCars } from '@state/cars/thunks';
+import { clickOnCompare, clickOnFavorite, fetchCars } from '@state/cars/thunks';
 import { selectCarsReducer } from '@state/cars/selectors';
+import { selectUser } from '@state/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import React, { FC, useEffect, useState } from 'react';
+import ErrorComponent from '../../Components/ErrorComponent';
+import React, { FC, useEffect } from 'react';
 import classes from './FindCars.module.scss';
 
 export const FindCars: FC = () => {
-  const [selectedEntitiesKeys, setSelectedEntitiesKeys] = useState<React.Key[]>([]);
-
   const dispatch = useDispatch<AppDispatch>();
 
-  const { cars, loading, error } = useSelector(selectCarsReducer);
+  const user = useSelector(selectUser);
+  const { cars, favoriteCars, comparedCars, loading, error } = useSelector(selectCarsReducer);
+
+  const handleChangeFavorite = (carId: string) => {
+    dispatch(clickOnFavorite({ carId, userId: user?.uid }));
+  };
+
+  const handleChangeCompared = (carId: string) => {
+    dispatch(clickOnCompare({ carId, userId: user?.uid }));
+  };
 
   useEffect(() => {
-    dispatch(fetchCars());
+    dispatch(fetchCars(user?.uid));
   }, [dispatch]);
-
-  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    setSelectedEntitiesKeys(newSelectedRowKeys);
-  };
-  const rowSelection: TableRowSelection<Record<string, string>> = {
-    selectedRowKeys: selectedEntitiesKeys,
-    onChange: onSelectChange,
-  };
 
   return (
     <div className={classes.root}>
@@ -39,11 +39,10 @@ export const FindCars: FC = () => {
         />
       </div>
       <div className={classes.root__tableContainer}>
-        {error && <div>{error}</div>}
+        <ErrorComponent errorMessage={error} />
         <Table
-          columns={columns}
+          columns={columns(handleChangeFavorite, handleChangeCompared)}
           dataSource={cars ?? undefined}
-          // rowSelection={rowSelection}
           locale={locale}
           loading={loading}
         />

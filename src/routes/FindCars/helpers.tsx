@@ -1,7 +1,16 @@
+import {
+  CheckCircleFilled,
+  CheckCircleOutlined,
+  QuestionCircleOutlined,
+  StarFilled,
+  StarOutlined,
+  TeamOutlined,
+} from '@ant-design/icons';
 import { CollapseProps, Spin, Tooltip } from 'antd';
 import { ColumnsType } from 'antd/es/table';
+import { ICar } from '@state/cars/types';
 import { TableLocale } from 'antd/es/table/interface';
-import { CheckCircleOutlined, StarOutlined, TeamOutlined } from '@ant-design/icons';
+import { format } from 'date-fns';
 import { useState } from 'react';
 import Filters from './Filters';
 import classes from './FindCars.module.scss';
@@ -24,8 +33,26 @@ const ImageLoader = ({ src, alt }: { src: string; alt: string }) => {
 
 export default ImageLoader;
 
-// todo странная типизация
-export const columns: ColumnsType<any> = [
+export const columns = (
+  handleChangeFavorite: (carId: string) => void,
+  handleChangeCompared: (carId: string) => void,
+): ColumnsType<ICar> => [
+  {
+    title: 'Дата',
+    dataIndex: 'date',
+    key: 'date',
+    // render: (text, record) => <div>{format(new Date(record.publishDate), 'yyyy-MM-dd HH:mm:ss')}</div>,
+    render: (text, record) => (
+      <div>
+        <div style={{ color: 'black', fontWeight: '500' }}>
+          {format(new Date(record.publishDate), 'HH:mm:ss')}
+        </div>
+        <div style={{ color: 'grey' }}>{format(new Date(record.publishDate), 'dd/MM/yyyy')}</div>
+      </div>
+    ),
+    align: 'center',
+    width: '8%',
+  },
   {
     title: 'Фото',
     dataIndex: 'imageUrl',
@@ -80,28 +107,62 @@ export const columns: ColumnsType<any> = [
     title: 'КПП',
     dataIndex: 'transmission',
     key: 'transmission',
-    render: (text, record) => <>{TransmissionTypeRecord[text]}</>,
+    render: (text) => <>{TransmissionTypeRecord[text]}</>,
     align: 'center',
   },
   {
-    title: '',
-    dataIndex: 'favorite',
-    key: 'favorite',
+    title: 'Сервис',
+    dataIndex: 'fromWhere',
+    key: 'fromWhere',
     render: (text, record) => (
-      <Tooltip title="Избранное">
-        <StarOutlined className={classes.compFavBtn} style={{ fontSize: '17px' }} onClick={alert} />
-      </Tooltip>
+      <>
+        {record.imageUrl.includes('avito') && 'Авито'}
+        {record.imageUrl.includes('autoru') && 'Авто.ру'}
+        {record.imageUrl.includes('drom') && 'Дром'}
+        {/* {record.imageUrl.includes('youla') && 'Юла'} */}
+      </>
     ),
     align: 'center',
   },
   {
-    title: '',
+    title: (
+      <Tooltip title="Избранное">
+        <QuestionCircleOutlined />
+      </Tooltip>
+    ),
+    dataIndex: 'favorite',
+    key: 'favorite',
+    render: (text, record) => (
+      // <Tooltip title="Избранное">
+      <div
+        className={classes.compFavBtn}
+        style={{ fontSize: '17px', cursor: 'pointer' }}
+        onClick={() => handleChangeFavorite(record.id.toString())}
+      >
+        {record.isFavorite ? <StarFilled /> : <StarOutlined />}
+      </div>
+      // </Tooltip>
+    ),
+    align: 'center',
+  },
+  {
+    title: (
+      <Tooltip title="Сравнение">
+        <QuestionCircleOutlined />
+      </Tooltip>
+    ),
     dataIndex: 'compared',
     key: 'compared',
     render: (text, record) => (
-      <Tooltip title="Сравнение">
-        <CheckCircleOutlined className={classes.compFavBtn} style={{ fontSize: '17px' }} onClick={alert} />
-      </Tooltip>
+      // <Tooltip title="Сравнение">
+      <div
+        className={classes.compFavBtn}
+        style={{ fontSize: '17px', cursor: 'pointer' }}
+        onClick={() => handleChangeCompared(record.id.toString())}
+      >
+        {record.isCompared ? <CheckCircleFilled /> : <CheckCircleOutlined />}
+      </div>
+      // </Tooltip>
     ),
     align: 'center',
   },

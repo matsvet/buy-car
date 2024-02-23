@@ -28,6 +28,7 @@ export const dispatchErrorHandler = (
   }
 };
 
+// todo type
 export const sliceCaseErrorHandler = (state, action) => {
   if (action.payload) {
     // Если в payload есть данные, предполагаем, что это объект с полем error

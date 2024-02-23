@@ -1,6 +1,5 @@
-import { Button } from 'antd';
-import { FC } from 'react';
 import { AlignLeftOutlined, SearchOutlined, StarOutlined, SwapOutlined } from '@ant-design/icons';
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './LeftSidebar.module.scss';
 

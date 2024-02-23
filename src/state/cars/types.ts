@@ -4,6 +4,8 @@ export interface ICarsState {
   loading: boolean;
   error: string | null;
   cars: ICar[] | null;
+  favoriteCars: IFavoriteOrComparedCar | null;
+  comparedCars: IFavoriteOrComparedCar | null;
 }
 
 export type ReducersType = {
@@ -106,4 +108,14 @@ export interface ICar {
   imageUrl: string;
   isRight: boolean;
   address: string | null;
+
+  isFavorite?: boolean;
+  isCompared?: boolean;
+}
+
+export interface IFavoriteOrComparedCar {
+  _id: Oid;
+  carId?: string;
+  userId?: string;
+  dateAdded?: string;
 }

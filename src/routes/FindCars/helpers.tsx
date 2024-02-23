@@ -1,6 +1,7 @@
 import {
   CheckCircleFilled,
   CheckCircleOutlined,
+  InfoCircleOutlined,
   QuestionCircleOutlined,
   StarFilled,
   StarOutlined,
@@ -127,7 +128,7 @@ export const columns = (
   {
     title: (
       <Tooltip title="Избранное">
-        <QuestionCircleOutlined />
+        <InfoCircleOutlined />
       </Tooltip>
     ),
     dataIndex: 'favorite',
@@ -148,7 +149,7 @@ export const columns = (
   {
     title: (
       <Tooltip title="Сравнение">
-        <QuestionCircleOutlined />
+        <InfoCircleOutlined />
       </Tooltip>
     ),
     dataIndex: 'compared',

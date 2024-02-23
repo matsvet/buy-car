@@ -240,13 +240,13 @@ export const Filters: FC = () => {
             <div className={classes.root__sortBlock}>
               {/* Сортировать по */}
               <Tooltip title="Сортировать по">
-                <Select placeholder="Сортировать по">
-                  <Select.Option key="person">Возрастанию цены</Select.Option>
-                  <Select.Option key="showroom">Убыванию цены</Select.Option>
-                  <Select.Option key="showroom">Сначала новые</Select.Option>
-                  <Select.Option key="showroom">Сначала старые</Select.Option>
-                  <Select.Option key="person">Возрастанию пробега</Select.Option>
-                  <Select.Option key="showroom">Убыванию пробега</Select.Option>
+                <Select placeholder="Сортировать по" className={classes.root__sortBlock__select}>
+                  <Select.Option key="priceFromLow">Возрастанию цены</Select.Option>
+                  <Select.Option key="priceFromHigh">Убыванию цены</Select.Option>
+                  <Select.Option key="dateFromNew">Сначала новые</Select.Option>
+                  <Select.Option key="dateFromOld">Сначала старые</Select.Option>
+                  <Select.Option key="mileageFromLow">Возрастанию пробега</Select.Option>
+                  <Select.Option key="mileageFromHigh">Убыванию пробега</Select.Option>
                 </Select>
               </Tooltip>
             </div>

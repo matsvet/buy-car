@@ -2,10 +2,14 @@ import { CaseReducer } from '@reduxjs/toolkit';
 
 export interface ICarsState {
   loading: boolean;
+  loadingFavorites: boolean;
+  loadingCompared: boolean;
   error: string | null;
+  // errorFavorites: string | null;
+  // errorCompared: string | null;
   cars: ICar[] | null;
-  favoriteCars: IFavoriteOrComparedCar | null;
-  comparedCars: IFavoriteOrComparedCar | null;
+  favoriteCars: ICar[] | null;
+  comparedCars: ICar[] | null;
 }
 
 export type ReducersType = {
@@ -83,7 +87,7 @@ export interface ICar {
   isDisabledByPromocode: boolean;
   showAvgPriceStatistics: boolean;
   avgPrice: number;
-  id: number;
+  id: string;
   modelId: number;
   generationId: number;
   year: number;

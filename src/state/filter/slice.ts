@@ -9,6 +9,7 @@ const initialState: IFilterState = {
   error: null,
   marks: null,
   models: null,
+  cities: null,
   loadingModels: false,
 };
 

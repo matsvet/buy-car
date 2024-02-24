@@ -8,6 +8,8 @@ import { selectVerifyAuthLoading } from '@state/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { verifyAuthState } from '@state/user/thunks';
+import ComparedCars from './routes/ComparedCars';
+import FavoriteCars from './routes/FavoriteCars';
 import FindCars from './routes/FindCars';
 import Header from './Components/Header/Header';
 import Home from './routes/Home';
@@ -56,8 +58,8 @@ const App = () => {
                 <CSSTransition key={location.key} classNames="fade" timeout={200} appear={true}>
                   <Routes location={location}>
                     <Route path="/find-cars" element={<FindCars />} />
-                    <Route path="/favorite-cars" element={<Settings />} />
-                    <Route path="/compared-cars" element={<Settings />} />
+                    <Route path="/favorite-cars" element={<FavoriteCars />} />
+                    <Route path="/compared-cars" element={<ComparedCars />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/login" element={<Login />} />

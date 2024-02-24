@@ -1,19 +1,19 @@
 import { AppDispatch } from '@store';
-import { Collapse, Table } from 'antd';
-import { clickOnCompare, clickOnFavorite, fetchCars } from '@state/cars/thunks';
-import { collapseItems, columns, locale } from './helpers';
+import { Table } from 'antd';
+import { clickOnCompare, clickOnFavorite, fetchCompared } from '@state/cars/thunks';
+import { columns, locale } from '../FindCars/helpers';
 import { selectCarsReducer } from '@state/cars/selectors';
 import { selectUser } from '@state/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorComponent from '../../Components/ErrorComponent';
 import React, { FC, useEffect } from 'react';
-import classes from './FindCars.module.scss';
+import classes from './ComparedCars.module.scss';
 
-export const FindCars: FC = () => {
+export const ComparedCars: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const user = useSelector(selectUser);
-  const { cars, loading, error } = useSelector(selectCarsReducer);
+  const { comparedCars, loadingCompared, error } = useSelector(selectCarsReducer);
 
   const handleChangeFavorite = (carId: string) => {
     dispatch(clickOnFavorite({ carId, userId: user?.uid }));
@@ -24,32 +24,23 @@ export const FindCars: FC = () => {
   };
 
   useEffect(() => {
-    if (user?.uid) dispatch(fetchCars(user?.uid));
+    if (user?.uid) dispatch(fetchCompared(user?.uid));
   }, [dispatch, user?.uid]);
 
   return (
     <div className={classes.root}>
-      <div className={classes.root__filtersContainer}>
-        <Collapse
-          items={collapseItems}
-          defaultActiveKey={['carsFilter']} // todo потом выключить, для демонстрации открывать и закрывать
-          bordered={false}
-          expandIconPosition="end"
-          className={classes.filtersCollapse}
-        />
-      </div>
       <div className={classes.root__tableContainer}>
         <ErrorComponent errorMessage={error} />
         <Table
           columns={columns(handleChangeFavorite, handleChangeCompared)}
-          dataSource={cars ?? undefined}
+          dataSource={comparedCars ?? undefined}
           locale={locale}
-          loading={loading}
-          virtual={true}
+          loading={loadingCompared}
+          pagination={false}
         />
       </div>
     </div>
   );
 };
 
-export default FindCars;
+export default ComparedCars;

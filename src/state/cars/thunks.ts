@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export const fetchCars = createAsyncThunk('cars/fetchCars', async (data: string | undefined, thunkAPI) => {
   try {
+    if (!data) return;
     const response = await axios.get(`${backURL}/cars`, {
       params: {
         userId: data,
@@ -22,6 +23,22 @@ export const fetchFavorites = createAsyncThunk(
   async (data: string | undefined, thunkAPI) => {
     try {
       const response = await axios.get(`${backURL}/favorites`, {
+        params: {
+          userId: data,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return thunkErrorHandler(thunkAPI, error);
+    }
+  },
+);
+
+export const fetchCompared = createAsyncThunk(
+  'cars/fetchCompared',
+  async (data: string | undefined, thunkAPI) => {
+    try {
+      const response = await axios.get(`${backURL}/compared`, {
         params: {
           userId: data,
         },

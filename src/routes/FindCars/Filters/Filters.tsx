@@ -94,9 +94,12 @@ export const Filters: FC = () => {
   useEffect(() => {
     dispatch(fetchFilter(user?.uid));
     dispatch(fetchMarks());
-    form.getFieldValue('mark') && dispatch(fetchModels(form.getFieldValue('mark')));
     dispatch(fetchCities());
   }, [dispatch, user?.uid]);
+
+  useEffect(() => {
+    form.getFieldValue('mark') && dispatch(fetchModels(form.getFieldValue('mark')));
+  }, [dispatch, form.getFieldValue('mark')]);
 
   return (
     <div className={classes.root}>
@@ -217,6 +220,7 @@ export const Filters: FC = () => {
                 <Tooltip title="Город">
                   <Form.Item name="settlement" initialValue={filter?.settlement ?? undefined}>
                     <Select placeholder="Город">
+                      <Select.Option key={'Все'}>Все</Select.Option>
                       {cities?.map((opt) => (
                         <Select.Option key={opt}>{opt}</Select.Option>
                       ))}

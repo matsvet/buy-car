@@ -2,7 +2,6 @@ import {
   CheckCircleFilled,
   CheckCircleOutlined,
   InfoCircleOutlined,
-  QuestionCircleOutlined,
   StarFilled,
   StarOutlined,
   TeamOutlined,
@@ -66,18 +65,33 @@ export const columns = (
     title: 'Марка и модель',
     dataIndex: 'name',
     key: 'name',
+    render: (text, record) => (
+      <a
+        href={record.imageUrl}
+        style={{
+          fontWeight: '500',
+          color: '#3f3fff',
+          textDecoration: 'none',
+        }}
+      >
+        {text}
+      </a>
+    ),
     align: 'center',
+    width: '13%',
   },
   {
-    title: 'Место',
-    dataIndex: 'settlement',
-    key: 'settlement',
+    title: 'Год',
+    dataIndex: 'year',
+    key: 'year',
     align: 'center',
+    width: '5%',
   },
   {
     title: 'Цена',
     dataIndex: 'price',
     key: 'price',
+    render: (text) => <div style={{ fontWeight: '500' }}>{new Intl.NumberFormat('ru-RU').format(text)}</div>,
     align: 'center',
   },
   {
@@ -91,16 +105,10 @@ export const columns = (
     align: 'center',
   },
   {
-    title: 'Год',
-    dataIndex: 'year',
-    key: 'year',
-    align: 'center',
-    width: '5%',
-  },
-  {
     title: 'Пробег',
     dataIndex: 'mileage',
     key: 'mileage',
+    render: (text) => <>{new Intl.NumberFormat('ru-RU').format(text)}</>,
     align: 'center',
     width: '8%',
   },
@@ -110,6 +118,7 @@ export const columns = (
     key: 'transmission',
     render: (text) => <>{TransmissionTypeRecord[text]}</>,
     align: 'center',
+    width: '5%',
   },
   {
     title: 'Сервис',
@@ -117,13 +126,20 @@ export const columns = (
     key: 'fromWhere',
     render: (text, record) => (
       <>
-        {record.imageUrl.includes('avito') && 'Авито'}
-        {record.imageUrl.includes('autoru') && 'Авто.ру'}
-        {record.imageUrl.includes('drom') && 'Дром'}
+        {record.imageUrl?.includes('avito') && 'Авито'}
+        {record.imageUrl?.includes('autoru') && 'Авто.ру'}
+        {record.imageUrl?.includes('drom') && 'Дром'}
         {/* {record.imageUrl.includes('youla') && 'Юла'} */}
       </>
     ),
     align: 'center',
+  },
+  {
+    title: 'Место',
+    dataIndex: 'settlement',
+    key: 'settlement',
+    align: 'center',
+    width: '10%',
   },
   {
     title: (
@@ -182,8 +198,8 @@ export const collapseItems: CollapseProps['items'] = [
 ];
 
 export const TransmissionTypeRecord: Record<string, string> = {
-  1: 'Автомат',
-  2: 'Механика',
+  1: 'АТ',
+  2: 'МТ',
   3: 'Робот',
-  4: 'Вариатор',
+  4: 'Вар.',
 };

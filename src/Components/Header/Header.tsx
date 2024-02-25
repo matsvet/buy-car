@@ -1,7 +1,10 @@
 import { BellOutlined, CarOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+import cn from 'classnames';
 import classes from './Header.module.scss';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@state/user/selectors';
 
 interface IProps {
   currentPage: string;
@@ -9,6 +12,8 @@ interface IProps {
 
 const Header: FC<IProps> = ({ currentPage }) => {
   const navigate = useNavigate();
+
+  const user = useSelector(selectUser);
 
   const goToHome = () => {
     navigate('/home');
@@ -37,7 +42,10 @@ const Header: FC<IProps> = ({ currentPage }) => {
         <div className={classes.root__logo} onClick={goToSettings}>
           <SettingOutlined />
         </div>
-        <div className={classes.root__logo} onClick={goToLogin}>
+        <div
+          className={cn(classes.root__logo, !user ? classes.root__logo__notAuthorized : undefined)}
+          onClick={goToLogin}
+        >
           <UserOutlined />
         </div>
       </div>

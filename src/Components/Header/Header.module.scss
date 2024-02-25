@@ -16,6 +16,10 @@
     cursor: pointer;
     transition: 0.2s;
 
+    &__notAuthorized {
+      color: rgb(255, 135, 135);
+    }
+
     &:hover {
       color: rgb(155, 155, 155);
       scale: 1.1;

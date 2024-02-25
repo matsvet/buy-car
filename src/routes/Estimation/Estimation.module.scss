@@ -1,0 +1,14 @@
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-top: 200px;
+
+  &__profileBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 250px;
+  }
+}

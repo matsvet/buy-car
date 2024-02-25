@@ -1,4 +1,4 @@
-import { ICarsState } from './types';
+import { ICar, ICarsState } from './types';
 import { clickOnCompare, clickOnFavorite, fetchCars, fetchCompared, fetchFavorites } from './thunks';
 import { createSlice } from '@reduxjs/toolkit';
 import { sliceCaseErrorHandler } from '@state/helpers';
@@ -30,7 +30,7 @@ const carsSlice = createSlice({
       })
       .addCase(fetchCars.fulfilled, (state, action) => {
         state.loading = false;
-        state.cars = action.payload;
+        state.cars = action.payload as ICar[] | null;
       })
       .addCase(fetchCars.rejected, (state, action) => {
         state.loading = false;

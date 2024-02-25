@@ -1,3 +1,4 @@
+import { ICar } from './types';
 import { backURL } from '../../constants/constants';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { message } from 'antd';
@@ -12,7 +13,7 @@ export const fetchCars = createAsyncThunk('cars/fetchCars', async (data: string 
         userId: data,
       },
     });
-    return response.data;
+    return response.data as ICar[] | null;
   } catch (error) {
     return thunkErrorHandler(thunkAPI, error);
   }
@@ -27,7 +28,7 @@ export const fetchFavorites = createAsyncThunk(
           userId: data,
         },
       });
-      return response.data;
+      return response.data as ICar[] | null;
     } catch (error) {
       return thunkErrorHandler(thunkAPI, error);
     }
@@ -43,7 +44,7 @@ export const fetchCompared = createAsyncThunk(
           userId: data,
         },
       });
-      return response.data;
+      return response.data as ICar[] | null;
     } catch (error) {
       return thunkErrorHandler(thunkAPI, error);
     }
@@ -54,7 +55,7 @@ export const clickOnFavorite = createAsyncThunk(
   'cars/clickOnFavorite',
   async (data: { carId?: string; userId?: string }, thunkAPI) => {
     if (!data.carId || !data.userId) {
-      message.error('Не переданы carId или userId');
+      void message.error('Не переданы carId или userId');
       return;
     }
     try {

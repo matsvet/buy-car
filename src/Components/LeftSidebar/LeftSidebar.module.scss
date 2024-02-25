@@ -13,13 +13,14 @@
 
     &__option {
       display: flex;
+      align-items: center;
       gap: 30px;
       height: 40px;
-      line-height: 40px;
+      line-height: 30px;
       border-radius: 10px;
-      font-weight: 700;
+      font-weight: 500;
       font-size: 18px;
-      // font-family: 'Courier New', Courier, monospace; // todo
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       cursor: pointer;
       padding: 5px 20px;
       margin: 0 5px;

@@ -1,4 +1,10 @@
-import { AlignLeftOutlined, SearchOutlined, StarOutlined, SwapOutlined } from '@ant-design/icons';
+import {
+  AlignLeftOutlined,
+  MoneyCollectOutlined,
+  SearchOutlined,
+  StarOutlined,
+  SwapOutlined,
+} from '@ant-design/icons';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './LeftSidebar.module.scss';
@@ -14,6 +20,9 @@ const LeftSidebar: FC = () => {
   };
   const goToComparedCars = () => {
     navigate('/compared-cars');
+  };
+  const goToEstimation = () => {
+    navigate('/estimation');
   };
   const goToNews = () => {
     navigate('/news');
@@ -33,6 +42,10 @@ const LeftSidebar: FC = () => {
         <div className={classes.root__buttonsBlock__option} onClick={goToComparedCars}>
           <SwapOutlined />
           Сравнение
+        </div>
+        <div className={classes.root__buttonsBlock__option} onClick={goToEstimation}>
+          <MoneyCollectOutlined />
+          Оценить авто
         </div>
         <div className={classes.root__buttonsBlock__option} onClick={goToNews}>
           <AlignLeftOutlined />

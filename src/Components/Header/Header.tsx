@@ -3,11 +3,11 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './Header.module.scss';
 
-type Props = {
+interface IProps {
   currentPage: string;
-};
+}
 
-const Header: FC<Props> = ({ currentPage }) => {
+const Header: FC<IProps> = ({ currentPage }) => {
   const navigate = useNavigate();
 
   const goToHome = () => {

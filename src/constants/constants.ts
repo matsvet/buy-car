@@ -13,6 +13,7 @@ export const pageTitles: Record<string, string> = {
   '/favorite-cars': 'Избранные авто',
   '/compared-cars': 'Сравниваемые авто',
   '/home': 'Домашняя страница',
+  '/notifications': 'Уведомления',
   '/settings': 'Настройки',
   '/login': 'Авторизация',
   '/incorrect-route': '404 Page Not Found',

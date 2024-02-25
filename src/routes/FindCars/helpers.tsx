@@ -44,10 +44,8 @@ export const columns = (
     // render: (text, record) => <div>{format(new Date(record.publishDate), 'yyyy-MM-dd HH:mm:ss')}</div>,
     render: (text, record) => (
       <div>
-        <div style={{ color: 'black', fontWeight: '500' }}>
-          {format(new Date(record.publishDate), 'HH:mm:ss')}
-        </div>
-        <div style={{ color: 'grey' }}>{format(new Date(record.publishDate), 'dd/MM/yyyy')}</div>
+        <div style={{ fontWeight: '500' }}>{format(new Date(record.publishDate), 'HH:mm:ss')}</div>
+        <div style={{ color: '#767289' }}>{format(new Date(record.publishDate), 'dd/MM/yyyy')}</div>
       </div>
     ),
     align: 'center',
@@ -70,7 +68,7 @@ export const columns = (
         href={record.imageUrl}
         style={{
           fontWeight: '500',
-          color: '#3f3fff',
+          color: '#1677ff',
           textDecoration: 'none',
         }}
       >
@@ -133,6 +131,7 @@ export const columns = (
       </>
     ),
     align: 'center',
+    width: '5%',
   },
   {
     title: 'Место',
@@ -150,7 +149,6 @@ export const columns = (
     dataIndex: 'favorite',
     key: 'favorite',
     render: (text, record) => (
-      // <Tooltip title="Избранное">
       <div
         className={classes.compFavBtn}
         style={{ fontSize: '17px', cursor: 'pointer' }}
@@ -158,9 +156,9 @@ export const columns = (
       >
         {record.isFavorite ? <StarFilled /> : <StarOutlined />}
       </div>
-      // </Tooltip>
     ),
     align: 'center',
+    width: '5%',
   },
   {
     title: (
@@ -171,7 +169,6 @@ export const columns = (
     dataIndex: 'compared',
     key: 'compared',
     render: (text, record) => (
-      // <Tooltip title="Сравнение">
       <div
         className={classes.compFavBtn}
         style={{ fontSize: '17px', cursor: 'pointer' }}
@@ -179,9 +176,9 @@ export const columns = (
       >
         {record.isCompared ? <CheckCircleFilled /> : <CheckCircleOutlined />}
       </div>
-      // </Tooltip>
     ),
     align: 'center',
+    width: '5%',
   },
 ];
 

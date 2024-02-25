@@ -1,15 +1,18 @@
 import { AppDispatch } from '@store';
 import { Button, Form, InputNumber, Select, Spin, Tooltip, message } from 'antd';
 import { IFilter } from '@state/filter/types';
+import { fetchCars } from '@state/cars/thunks';
 import { fetchCities, fetchFilter, fetchMarks, fetchModels, updateFilter } from '@state/filter/thunks';
 import { selectFilterReducer } from '@state/filter/selectors';
 import { selectUser } from '@state/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorComponent from '../../../Components/ErrorComponent';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import classes from './Filters.module.scss';
 
 export const Filters: FC = () => {
+  const [sorting, setSorting] = useState<string | null>(null);
+
   const dispatch = useDispatch<AppDispatch>();
 
   const user = useSelector(selectUser);
@@ -17,13 +20,13 @@ export const Filters: FC = () => {
 
   const [form] = Form.useForm();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!user?.uid) {
       message.error('Не найден ID текущего пользователя');
       return;
     }
 
-    const formValues = form.getFieldsValue();
+    const formValues: IFilter = form.getFieldsValue() as IFilter;
     const currentFilter: IFilter = {
       userId: user.uid,
       priceMin: formValues.priceMin,
@@ -38,9 +41,11 @@ export const Filters: FC = () => {
       model: formValues.model,
       settlement: formValues.settlement !== 'all' ? formValues.settlement : undefined,
       isShowroom: formValues.isShowroom,
+      sorting,
     };
 
-    dispatch(updateFilter(currentFilter));
+    // TODO разобраться, нужен ли await идеологически
+    await dispatch(updateFilter(currentFilter));
   };
 
   const handleResetFilters = () => {
@@ -63,6 +68,7 @@ export const Filters: FC = () => {
       model: null,
       settlement: null,
       isShowroom: null,
+      sorting: null,
     };
 
     dispatch(updateFilter(currentFilter));
@@ -84,22 +90,35 @@ export const Filters: FC = () => {
       { name: 'settlement', value: undefined },
       { name: 'isShowroom', value: undefined },
     ]);
+    setSorting(null);
   };
 
-  const handleSelectMark = (value: string) => {
+  const handleSelectMark = async (value: string) => {
     form.setFieldValue('model', undefined);
-    dispatch(fetchModels(value));
+    await dispatch(fetchModels(value));
   };
 
   useEffect(() => {
-    dispatch(fetchFilter(user?.uid));
-    dispatch(fetchMarks());
-    dispatch(fetchCities());
+    const fetchData = async () => {
+      // Поскольку каждый dispatch возвращает Promise (предполагая, что они асинхронны),
+      // вы можете использовать await для ожидания их завершения.
+      if (user?.uid) {
+        await dispatch(fetchFilter(user.uid));
+      }
+      await dispatch(fetchMarks());
+      await dispatch(fetchCities());
+    };
+
+    fetchData();
   }, [dispatch, user?.uid]);
 
   useEffect(() => {
-    form.getFieldValue('mark') && dispatch(fetchModels(form.getFieldValue('mark')));
+    form.getFieldValue('mark') && dispatch(fetchModels(form.getFieldValue('mark') as string));
   }, [dispatch, form.getFieldValue('mark')]);
+
+  useEffect(() => {
+    if (user?.uid) dispatch(fetchCars(user?.uid));
+  }, [dispatch, filter]);
 
   return (
     <div className={classes.root}>
@@ -110,13 +129,13 @@ export const Filters: FC = () => {
       ) : (
         <div className={classes.root__mainContent}>
           <ErrorComponent errorMessage={error} />
-          <Form form={form} layout="inline" onFinish={handleSubmit}>
+          <Form form={form} layout="inline">
             <div className={classes.filtersForm}>
               <div className={classes.pairedContainer}>
-                {/* Марка, модель */}
                 <Tooltip title="Марка">
                   <Form.Item name="mark" initialValue={filter?.mark ?? undefined}>
-                    <Select placeholder="Марка" onSelect={handleSelectMark}>
+                    <Select placeholder="Марка" onSelect={handleSelectMark} showSearch>
+                      <Select.Option key="all">Все</Select.Option>
                       {marks?.map((opt) => (
                         <Select.Option key={opt}>{opt}</Select.Option>
                       ))}
@@ -125,7 +144,12 @@ export const Filters: FC = () => {
                 </Tooltip>
                 <Tooltip title="Модель">
                   <Form.Item name="model" initialValue={filter?.model ?? undefined}>
-                    <Select placeholder="Модель" disabled={!models || models.length === 0 || loadingModels}>
+                    <Select
+                      placeholder="Модель"
+                      disabled={!models || models.length === 0 || loadingModels}
+                      showSearch
+                    >
+                      <Select.Option key="all">Все</Select.Option>
                       {models?.map((opt) => (
                         <Select.Option key={opt}>{opt}</Select.Option>
                       ))}
@@ -134,7 +158,6 @@ export const Filters: FC = () => {
                 </Tooltip>
               </div>
               <div className={classes.pairedContainer}>
-                {/* Цена */}
                 <Tooltip title="Цена, от">
                   <Form.Item name="priceMin" initialValue={filter?.priceMin ?? undefined}>
                     <InputNumber
@@ -157,7 +180,6 @@ export const Filters: FC = () => {
                 </Tooltip>
               </div>
               <div className={classes.pairedContainer}>
-                {/* Пробег */}
                 <Tooltip title="Пробег, от">
                   <Form.Item name="mileageMin" initialValue={filter?.mileageMin ?? undefined}>
                     <InputNumber
@@ -180,7 +202,6 @@ export const Filters: FC = () => {
                 </Tooltip>
               </div>
               <div className={classes.pairedContainer}>
-                {/* Год */}
                 <Tooltip title="Год, от">
                   <Form.Item name="yearMin" initialValue={filter?.yearMin ?? undefined}>
                     <InputNumber className={classes.pairedItem} min={1900} max={2024} placeholder="Год, от" />
@@ -193,7 +214,6 @@ export const Filters: FC = () => {
                 </Tooltip>
               </div>
               <div className={classes.pairedContainer}>
-                {/* Владельцев */}
                 <Tooltip title="Владельцев, от">
                   <Form.Item name="ownersCountMin" initialValue={filter?.ownersCountMin ?? undefined}>
                     <InputNumber
@@ -216,11 +236,12 @@ export const Filters: FC = () => {
                 </Tooltip>
               </div>
               <div className={classes.pairedContainer}>
-                {/* Город, владелец */}
                 <Tooltip title="Город">
                   <Form.Item name="settlement" initialValue={filter?.settlement ?? undefined}>
-                    <Select placeholder="Город">
-                      <Select.Option key={'Все'}>Все</Select.Option>
+                    <Select placeholder="Город" showSearch>
+                      <Select.Option key={'all'}>Все</Select.Option>
+                      <Select.Option key={'Москва'}>Москва</Select.Option>
+                      <Select.Option key={'Санкт-Петербург'}>Санкт-Петербург</Select.Option>
                       {cities?.map((opt) => (
                         <Select.Option key={opt}>{opt}</Select.Option>
                       ))}
@@ -242,9 +263,19 @@ export const Filters: FC = () => {
 
           <div className={classes.root__sortAndButtons}>
             <div className={classes.root__sortBlock}>
-              {/* Сортировать по */}
               <Tooltip title="Сортировать по">
-                <Select placeholder="Сортировать по" className={classes.root__sortBlock__select}>
+                <Select
+                  placeholder="Сортировать по"
+                  className={classes.root__sortBlock__select}
+                  onChange={(e) => {
+                    if (e === 'default') setSorting(null);
+                    else setSorting(e);
+                  }}
+                  defaultValue={filter?.sorting}
+                >
+                  <Select.Option key="default" onClick={() => setSorting(null)}>
+                    По умолчанию
+                  </Select.Option>
                   <Select.Option key="priceFromLow">Возрастанию цены</Select.Option>
                   <Select.Option key="priceFromHigh">Убыванию цены</Select.Option>
                   <Select.Option key="dateFromNew">Сначала новые</Select.Option>

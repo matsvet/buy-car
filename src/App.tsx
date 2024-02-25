@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { verifyAuthState } from '@state/user/thunks';
 import ComparedCars from './routes/ComparedCars';
+import Estimation from './routes/Estimation';
 import FavoriteCars from './routes/FavoriteCars';
 import FindCars from './routes/FindCars';
 import Header from './Components/Header/Header';
@@ -16,6 +17,8 @@ import Home from './routes/Home';
 import IncorrectRoute from './routes/IncorrectRoute';
 import LeftSidebar from './Components/LeftSidebar/LeftSidebar';
 import Login from './routes/Login';
+import News from './routes/News';
+import Notifications from './routes/Notifications';
 import Settings from './routes/Settings';
 import classes from './App.module.scss';
 
@@ -29,7 +32,7 @@ const App = () => {
   const verifyAuthLoading = useSelector(selectVerifyAuthLoading);
 
   useEffect(() => {
-    dispatch(verifyAuthState());
+    void dispatch(verifyAuthState());
   }, [dispatch]);
 
   useEffect(() => {
@@ -57,10 +60,13 @@ const App = () => {
               <SwitchTransition mode="out-in">
                 <CSSTransition key={location.key} classNames="fade" timeout={200} appear={true}>
                   <Routes location={location}>
+                    <Route path="/home" element={<Home />} />
                     <Route path="/find-cars" element={<FindCars />} />
                     <Route path="/favorite-cars" element={<FavoriteCars />} />
                     <Route path="/compared-cars" element={<ComparedCars />} />
-                    <Route path="/home" element={<Home />} />
+                    <Route path="/estimation" element={<Estimation />} />
+                    <Route path="/news" element={<News />} />
+                    <Route path="/notifications" element={<Notifications />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/login" element={<Login />} />
 

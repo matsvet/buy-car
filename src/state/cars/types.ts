@@ -12,24 +12,22 @@ export interface ICarsState {
   comparedCars: ICar[] | null;
 }
 
-export type ReducersType = {
+export interface ReducersType {
   clearCars: CaseReducer<ICarsState>;
-};
+}
 
 interface Oid {
   $oid: string;
 }
 
-interface Tag {
-  [index: number]: number; // Предполагая, что теги - это массив чисел
-}
+type Tag = Record<number, number>;
 
 export interface ICar {
   _id: Oid;
   name: string;
   settlement: string;
   isShowroom: boolean;
-  sellerType: null | any; // Тип продавца не указан, предполагаем, что может быть любым или null
+  // sellerType: null | any; // Тип продавца не указан, предполагаем, что может быть любым или null
   isFakeNumber: boolean;
   phoneCount: number;
   previousPrice: number | null;
@@ -54,8 +52,8 @@ export interface ICar {
   clickedByOther: boolean;
   called: boolean;
   favoriteId: number | null;
-  favorite: any | null; // Тип не указан, предполагаем, что может быть любым или null
-  rowColor: any | null; // Тип не указан, предполагаем, что может быть любым или null
+  // favorite: any | null; // Тип не указан, предполагаем, что может быть любым или null
+  // rowColor: any | null; // Тип не указан, предполагаем, что может быть любым или null
   shopId: number | null;
   shopNetworkId: number | null;
   shopName: string | null;
@@ -68,12 +66,12 @@ export interface ICar {
   favoriteShopOwnerName: string | null;
   favoriteDoublesAmount: number | null;
   auctionId: number | null;
-  placeholder: any | null; // Тип не указан, предполагаем, что может быть любым или null
+  // placeholder: any | null; // Тип не указан, предполагаем, что может быть любым или null
   saleDays: number | null;
   inStock: boolean | null;
   isCurrent: boolean | null;
   isExclude: boolean;
-  eventType: any | null; // Тип не указан, предполагаем, что может быть любым или null
+  // eventType: any | null; // Тип не указан, предполагаем, что может быть любым или null
   advertUrl: string | null;
   advertUserCallId: number | null;
   showPhone: boolean;
@@ -96,7 +94,7 @@ export interface ICar {
   mileage: number;
   bodyType: number;
   transmission: number;
-  generation: any | null; // Тип не указан, предполагаем, что может быть любым или null
+  // generation: any | null; // Тип не указан, предполагаем, что может быть любым или null
   ownersCount: number;
   ownersCountText: string;
   drive: number;

@@ -1,4 +1,15 @@
 .root {
   padding: 20px;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  &__settingsList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
 }

@@ -10,9 +10,9 @@ export interface IFilterState {
   loadingModels: boolean;
 }
 
-export type ReducersType = {
+export interface ReducersType {
   clearFilter: CaseReducer<IFilterState>;
-};
+}
 
 export interface IFilter {
   // id: string;
@@ -29,4 +29,5 @@ export interface IFilter {
   model?: string | null;
   settlement?: string | null;
   isShowroom?: boolean | null;
+  sorting?: string | null;
 }

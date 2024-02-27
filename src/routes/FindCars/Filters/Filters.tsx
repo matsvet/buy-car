@@ -3,6 +3,7 @@ import { Button, Form, InputNumber, Select, Spin, Tooltip, message } from 'antd'
 import { IFilter } from '@state/filter/types';
 import { fetchCars } from '@state/cars/thunks';
 import { fetchCities, fetchFilter, fetchMarks, fetchModels, updateFilter } from '@state/filter/thunks';
+import { selectCarsReducer } from '@state/cars/selectors';
 import { selectFilterReducer } from '@state/filter/selectors';
 import { selectUser } from '@state/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,13 +17,14 @@ export const Filters: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const user = useSelector(selectUser);
+  const { pageSize } = useSelector(selectCarsReducer);
   const { filter, marks, models, cities, loading, loadingModels, error } = useSelector(selectFilterReducer);
 
   const [form] = Form.useForm();
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!user?.uid) {
-      message.error('Не найден ID текущего пользователя');
+      void message.error('Не найден ID текущего пользователя');
       return;
     }
 
@@ -44,13 +46,12 @@ export const Filters: FC = () => {
       sorting,
     };
 
-    // TODO разобраться, нужен ли await идеологически
-    await dispatch(updateFilter(currentFilter));
+    void dispatch(updateFilter(currentFilter));
   };
 
   const handleResetFilters = () => {
     if (!user?.uid) {
-      message.error('Не найден ID текущего пользователя');
+      void message.error('Не найден ID текущего пользователя');
       return;
     }
 
@@ -71,9 +72,9 @@ export const Filters: FC = () => {
       sorting: null,
     };
 
-    dispatch(updateFilter(currentFilter));
+    void dispatch(updateFilter(currentFilter));
 
-    dispatch(fetchFilter(user?.uid));
+    void dispatch(fetchFilter(user?.uid));
 
     form.setFields([
       { name: 'userId', value: user.uid },
@@ -93,23 +94,20 @@ export const Filters: FC = () => {
     setSorting(null);
   };
 
-  const handleSelectMark = async (value: string) => {
+  const handleSelectMark = (value: string) => {
     form.setFieldValue('model', undefined);
-    await dispatch(fetchModels(value));
+    void dispatch(fetchModels(value));
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      // Поскольку каждый dispatch возвращает Promise (предполагая, что они асинхронны),
-      // вы можете использовать await для ожидания их завершения.
       if (user?.uid) {
         await dispatch(fetchFilter(user.uid));
       }
       await dispatch(fetchMarks());
       await dispatch(fetchCities());
     };
-
-    fetchData();
+    void fetchData();
   }, [dispatch, user?.uid]);
 
   useEffect(() => {
@@ -117,7 +115,7 @@ export const Filters: FC = () => {
   }, [dispatch, form.getFieldValue('mark')]);
 
   useEffect(() => {
-    if (user?.uid) dispatch(fetchCars(user?.uid));
+    if (user?.uid) void dispatch(fetchCars({ userId: user?.uid, page: 1, pageSize }));
   }, [dispatch, filter]);
 
   return (

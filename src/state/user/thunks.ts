@@ -49,7 +49,6 @@ export const signInWithGoogle = createAsyncThunk('user/signInWithGoogle', async 
 
 export const signOut = createAsyncThunk('user/signOut', async (data, thunkAPI) => {
   try {
-    // await auth.signOut();
     await firebaseSignOut(auth);
   } catch (error) {
     return thunkErrorHandler(thunkAPI, error);

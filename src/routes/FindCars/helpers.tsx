@@ -76,7 +76,6 @@ export const columns = (
       </a>
     ),
     align: 'center',
-    width: '13%',
   },
   {
     title: 'Год',
@@ -186,10 +185,10 @@ export const locale: TableLocale = {
   emptyText: 'По Вашему запросу ничего не найдено',
 };
 
-export const collapseItems: CollapseProps['items'] = [
+export const collapseItems = (foundCount: number | null): CollapseProps['items'] => [
   {
     key: 'carsFilter',
-    label: 'Фильтры поиска',
+    label: `Фильтры поиска ${foundCount ?? ''}`,
     children: <Filters />,
   },
 ];

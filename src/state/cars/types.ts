@@ -10,6 +10,10 @@ export interface ICarsState {
   cars: ICar[] | null;
   favoriteCars: ICar[] | null;
   comparedCars: ICar[] | null;
+  totalItems: number | null;
+  currentPage: number | null;
+  totalPages: number | null;
+  pageSize: number;
 }
 
 export interface ReducersType {
@@ -120,4 +124,18 @@ export interface IFavoriteOrComparedCar {
   carId?: string;
   userId?: string;
   dateAdded?: string;
+}
+
+export interface ICarResponse {
+  cars: ICar[];
+  totalItems: number;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+}
+
+export interface ICarRequestParams {
+  userId: string | null;
+  page: number | null;
+  pageSize: number | null;
 }

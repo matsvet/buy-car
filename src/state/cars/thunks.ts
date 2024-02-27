@@ -1,19 +1,16 @@
-import { ICar } from './types';
+import { ICar, ICarRequestParams, ICarResponse } from './types';
 import { backURL } from '../../constants/constants';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { message } from 'antd';
 import { thunkErrorHandler } from '@state/helpers';
 import axios from 'axios';
 
-export const fetchCars = createAsyncThunk('cars/fetchCars', async (data: string | undefined, thunkAPI) => {
+export const fetchCars = createAsyncThunk('cars/fetchCars', async (data: ICarRequestParams, thunkAPI) => {
   try {
-    if (!data) return;
     const response = await axios.get(`${backURL}/cars`, {
-      params: {
-        userId: data,
-      },
+      params: data,
     });
-    return response.data as ICar[] | null;
+    return response.data as ICarResponse | null;
   } catch (error) {
     return thunkErrorHandler(thunkAPI, error);
   }

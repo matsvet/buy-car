@@ -11,8 +11,8 @@ export interface ICarsState {
   favoriteCars: ICar[] | null;
   comparedCars: ICar[] | null;
   totalItems: number | null;
-  currentPage: number | null;
   totalPages: number | null;
+  currentPage: number;
   pageSize: number;
 }
 

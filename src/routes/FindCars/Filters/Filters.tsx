@@ -11,6 +11,8 @@ import ErrorComponent from '../../../Components/ErrorComponent';
 import React, { FC, useEffect, useState } from 'react';
 import classes from './Filters.module.scss';
 
+type ResetFields = keyof Omit<IFilter, 'userId' | 'sorting'>;
+
 export const Filters: FC = () => {
   const [sorting, setSorting] = useState<string | null>(null);
 
@@ -20,77 +22,57 @@ export const Filters: FC = () => {
   const { pageSize } = useSelector(selectCarsReducer);
   const { filter, marks, models, cities, loading, loadingModels, error } = useSelector(selectFilterReducer);
 
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<Omit<IFilter, 'userId' | 'sorting'>>();
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     if (!user?.uid) {
-      void message.error('Не найден ID текущего пользователя');
+      void message.error('Авторизуйтесь, чтобы использовать фильтры');
       return;
     }
 
-    const formValues: IFilter = form.getFieldsValue() as IFilter;
+    const formValues = form.getFieldsValue();
     const currentFilter: IFilter = {
+      ...formValues,
       userId: user.uid,
-      priceMin: formValues.priceMin,
-      priceMax: formValues.priceMax ?? null,
-      mileageMin: formValues.mileageMin,
-      mileageMax: formValues.mileageMax,
-      yearMin: formValues.yearMin,
-      yearMax: formValues.yearMax,
-      ownersCountMin: formValues.ownersCountMin,
-      ownersCountMax: formValues.ownersCountMax,
-      mark: formValues.mark,
-      model: formValues.model,
-      settlement: formValues.settlement !== 'all' ? formValues.settlement : undefined,
-      isShowroom: formValues.isShowroom,
       sorting,
     };
 
     void dispatch(updateFilter(currentFilter));
   };
 
-  const handleResetFilters = () => {
+  const handleResetFilters = (): void => {
     if (!user?.uid) {
-      void message.error('Не найден ID текущего пользователя');
+      void message.error('Авторизуйтесь, чтобы использовать фильтры');
       return;
     }
 
-    const currentFilter: IFilter = {
-      userId: user.uid,
-      priceMin: null,
-      priceMax: null,
-      mileageMin: null,
-      mileageMax: null,
-      yearMin: null,
-      yearMax: null,
-      ownersCountMin: null,
-      ownersCountMax: null,
-      mark: null,
-      model: null,
-      settlement: null,
-      isShowroom: null,
-      sorting: null,
-    };
+    const resetFields: ResetFields[] = [
+      'priceMin',
+      'priceMax',
+      'mileageMin',
+      'mileageMax',
+      'yearMin',
+      'yearMax',
+      'ownersCountMin',
+      'ownersCountMax',
+      'mark',
+      'model',
+      'settlement',
+      'isShowroom',
+    ];
+
+    const currentFilter: IFilter = resetFields.reduce(
+      (acc, field) => ({
+        ...acc,
+        [field]: null,
+      }),
+      { userId: user.uid, sorting: null },
+    );
 
     void dispatch(updateFilter(currentFilter));
+    void dispatch(fetchFilter(user.uid));
 
-    void dispatch(fetchFilter(user?.uid));
-
-    form.setFields([
-      { name: 'userId', value: user.uid },
-      { name: 'priceMin', value: undefined },
-      { name: 'priceMax', value: undefined },
-      { name: 'mileageMin', value: undefined },
-      { name: 'mileageMax', value: undefined },
-      { name: 'yearMin', value: undefined },
-      { name: 'yearMax', value: undefined },
-      { name: 'ownersCountMin', value: undefined },
-      { name: 'ownersCountMax', value: undefined },
-      { name: 'mark', value: undefined },
-      { name: 'model', value: undefined },
-      { name: 'settlement', value: undefined },
-      { name: 'isShowroom', value: undefined },
-    ]);
+    form.setFields(resetFields.map((name) => ({ name, value: undefined })));
     setSorting(null);
   };
 

@@ -17,20 +17,24 @@ export const Pagination: FC = () => {
     void dispatch(
       fetchCars({
         userId: user?.uid ?? null,
-        page: 1,
-        pageSize: pageSize + 10,
+        page: currentPage + 1,
+        pageSize,
       }),
     );
   };
 
   useEffect(() => {
-    void dispatch(fetchCars({ userId: user?.uid ?? null, page: currentPage, pageSize }));
+    void dispatch(fetchCars({ userId: user?.uid ?? null, page: 1, pageSize }));
   }, [user?.uid]);
 
   return (
     <div className={classes.root}>
       {!loading ? (
-        <Button onClick={getNextPage} disabled={totalItems ? pageSize > totalItems : true} size="large">
+        <Button
+          onClick={getNextPage}
+          disabled={totalItems ? pageSize * currentPage > totalItems : true}
+          size="large"
+        >
           Показать еще
         </Button>
       ) : (

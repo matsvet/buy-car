@@ -12,7 +12,7 @@ const initialState: ICarsState = {
   favoriteCars: null,
   comparedCars: null,
   totalItems: null,
-  currentPage: null,
+  currentPage: 1,
   totalPages: null,
   pageSize: 10,
 };
@@ -34,11 +34,14 @@ const carsSlice = createSlice({
       })
       .addCase(fetchCars.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.cars = payload?.cars ?? null;
+        // state.cars = payload?.cars ?? null;
         state.totalItems = payload?.totalItems ?? null;
-        state.currentPage = payload?.currentPage ?? null;
+        state.currentPage = payload?.currentPage ?? 1;
         state.totalItems = payload?.totalItems ?? null;
         state.pageSize = payload?.pageSize ?? 10;
+
+        state.cars =
+          state.currentPage === 1 ? payload?.cars ?? null : [...(state.cars ?? []), ...(payload?.cars ?? [])];
       })
       .addCase(fetchCars.rejected, (state, action) => {
         state.loading = false;

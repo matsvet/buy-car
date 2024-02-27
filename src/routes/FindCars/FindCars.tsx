@@ -28,7 +28,7 @@ export const FindCars: FC = () => {
     <div className={classes.root}>
       <div className={classes.root__filtersContainer}>
         <Collapse
-          items={collapseItems(totalItems)}
+          items={collapseItems()}
           defaultActiveKey={['carsFilter']} // todo потом выключить, для демонстрации открывать и закрывать
           bordered={false}
           expandIconPosition="end"

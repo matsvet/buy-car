@@ -185,10 +185,10 @@ export const locale: TableLocale = {
   emptyText: 'По Вашему запросу ничего не найдено',
 };
 
-export const collapseItems = (foundCount: number | null): CollapseProps['items'] => [
+export const collapseItems = (): CollapseProps['items'] => [
   {
     key: 'carsFilter',
-    label: `Фильтры поиска ${foundCount ?? ''}`,
+    label: `Фильтры поиска`,
     children: <Filters />,
   },
 ];

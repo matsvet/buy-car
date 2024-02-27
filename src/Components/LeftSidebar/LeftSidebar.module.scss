@@ -14,16 +14,18 @@
     &__option {
       display: flex;
       align-items: center;
-      gap: 30px;
+      justify-content: space-between;
+      gap: 25px;
+
       height: 40px;
       line-height: 30px;
       border-radius: 10px;
       font-weight: 500;
-      font-size: 18px;
+      font-size: 17px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       cursor: pointer;
       padding: 5px 20px;
-      margin: 0 5px;
+      margin: 0 10px;
       transition: 0.2s;
 
       &:hover {
@@ -31,6 +33,21 @@
         scale: 1.05;
         transition: 0.2s;
         background-color: rgb(225, 225, 225);
+      }
+
+      &__iconTitle {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+      }
+
+      &__active {
+        background-color: rgb(225, 225, 225);
+        scale: 1.05;
+      }
+
+      &__counter {
+        color: grey;
       }
     }
   }

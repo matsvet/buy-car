@@ -44,11 +44,11 @@ const App = () => {
     <div className={classes.root}>
       <GlobalStyle />
       <div className={classes.root__header}>
-        <Header currentPage={currentAppPage} />
+        <Header currentPage={currentAppPage} pathname={location.pathname} />
       </div>
       <div className={classes.root__container}>
         <div className={classes.root__container__sidebar}>
-          <LeftSidebar />
+          <LeftSidebar pathname={location.pathname} />
         </div>
         <div className={classes.root__container__mainContent}>
           {verifyAuthLoading ? (

@@ -1,3 +1,10 @@
 .root {
-  margin: 80px;
+  padding: calc((100dvh - 460px - 53px - 30px) / 2) 150px 0 150px;
+
+  &__text {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    width: 90%;
+    height: 200px;
+  }
 }

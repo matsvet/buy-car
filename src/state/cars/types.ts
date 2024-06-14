@@ -114,6 +114,7 @@ export interface ICar {
   imageUrl: string;
   isRight: boolean;
   address: string | null;
+  url: string | null;
 
   isFavorite?: boolean;
   isCompared?: boolean;

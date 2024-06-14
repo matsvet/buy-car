@@ -5,11 +5,17 @@
   align-items: center;
   flex-direction: column;
   gap: 15px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
   &__settingsList {
     display: flex;
     flex-direction: column;
+    // align-items: center;
+    justify-content: center;
     gap: 15px;
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 40px;
+    min-width: 550px;
   }
 }

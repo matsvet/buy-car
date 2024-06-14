@@ -1,6 +1,6 @@
 import { RootState } from '@state';
 
-export type AsyncThunkConfigType = {
+export interface AsyncThunkConfigType {
   state: RootState;
   rejectValue: { error: string };
-};
+}

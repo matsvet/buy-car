@@ -1,7 +1,9 @@
 import { AppDispatch } from '@store';
-import { Table } from 'antd';
+import { FilterOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { Segmented, Table } from 'antd';
 import { clickOnCompare, clickOnFavorite, fetchFavorites } from '@state/cars/thunks';
 import { columns, locale } from '../FindCars/helpers';
+import { favColumns } from './helpers';
 import { selectCarsReducer } from '@state/cars/selectors';
 import { selectUser } from '@state/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,26 +18,42 @@ export const FavoriteCars: FC = () => {
   const { favoriteCars, loadingFavorites, error } = useSelector(selectCarsReducer);
 
   const handleChangeFavorite = (carId: string) => {
-    dispatch(clickOnFavorite({ carId, userId: user?.uid }));
+    void dispatch(clickOnFavorite({ carId, userId: user?.uid }));
   };
 
   const handleChangeCompared = (carId: string) => {
-    dispatch(clickOnCompare({ carId, userId: user?.uid }));
+    void dispatch(clickOnCompare({ carId, userId: user?.uid }));
   };
 
   useEffect(() => {
-    if (user?.uid) dispatch(fetchFavorites(user?.uid));
+    if (user?.uid) void dispatch(fetchFavorites(user?.uid));
   }, [dispatch, user?.uid]);
 
   return (
     <div className={classes.root}>
       <div className={classes.root__tableContainer}>
+        <Segmented
+          options={[
+            {
+              label: 'Объявления',
+              value: 'Объявления',
+              icon: <UnorderedListOutlined />,
+              className: classes.tab,
+            },
+            { label: 'Фильтры', value: 'Фильтры', icon: <FilterOutlined />, className: classes.tab },
+          ]}
+          // width={1000}
+          style={{ width: '100%', margin: '0 0 20px 0' }}
+        />
         <ErrorComponent errorMessage={error} />
         <Table
-          columns={columns(handleChangeFavorite, handleChangeCompared)}
+          columns={favColumns(handleChangeFavorite, handleChangeCompared)}
           dataSource={favoriteCars ?? undefined}
           locale={locale}
           loading={loadingFavorites}
+          rowClassName={(record) =>
+            record.settlement === 'Старый Крым' || record.price === 975000 ? classes.disabledRow : undefined
+          }
           // pagination
         />
       </div>

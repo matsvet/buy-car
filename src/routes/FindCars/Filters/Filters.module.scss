@@ -31,7 +31,11 @@
 
   &__sortBlock {
     &__select {
-      width: 185px;
+      width: 165px;
+    }
+    &__selectShowBy {
+      margin-left: 10px;
+      width: 100px;
     }
   }
 
@@ -49,6 +53,9 @@
 }
 
 .pairedContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   width: 145px;
 }
 

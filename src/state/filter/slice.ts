@@ -1,4 +1,4 @@
-import { IFilterState } from './types';
+import { IFilter, IFilterState } from './types';
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchCities, fetchFilter, fetchMarks, fetchModels, updateFilter } from './thunks';
 import { sliceCaseErrorHandler } from '@state/helpers';
@@ -29,7 +29,7 @@ const filterSlice = createSlice({
       .addCase(fetchFilter.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.filter = action.payload;
+        state.filter = action.payload as IFilter;
       })
       .addCase(fetchFilter.rejected, (state, action) => {
         state.loading = false;

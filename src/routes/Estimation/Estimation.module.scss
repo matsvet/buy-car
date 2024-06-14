@@ -1,14 +1,49 @@
 .root {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 30px;
   padding: 20px;
-  margin-top: 200px;
 
-  &__profileBlock {
+  &__loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 200px 48%;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  &__mainContent {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 20px;
+    width: 315px;
+  }
+
+  &__resultContent {
+    background-color: #f0f0f0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 250px;
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 40px;
   }
+}
+
+.filtersForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-weight: 500;
+  line-height: 30px;
+}
+
+.pairedContainer {
+  display: flex;
+  width: 400px;
 }

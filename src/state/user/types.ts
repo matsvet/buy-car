@@ -13,7 +13,7 @@ export interface IUser {
   photoURL: string | null;
 }
 
-export type ReducersType = {
+export interface ReducersType {
   clearUser: CaseReducer<IUserState>;
   // clearUser: () => void;
-};
+}

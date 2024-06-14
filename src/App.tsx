@@ -44,7 +44,10 @@ const App = () => {
     <div className={classes.root}>
       <GlobalStyle />
       <div className={classes.root__header}>
-        <Header currentPage={currentAppPage} pathname={location.pathname} />
+        <Header
+          currentPage={currentAppPage}
+          location={location as unknown as { path: string; key: string }}
+        />
       </div>
       <div className={classes.root__container}>
         <div className={classes.root__container__sidebar}>
@@ -60,6 +63,7 @@ const App = () => {
               <SwitchTransition mode="out-in">
                 <CSSTransition key={location.key} classNames="fade" timeout={200} appear={true}>
                   <Routes location={location}>
+                    <Route path="/" element={<Navigate to="/home" replace />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/find-cars" element={<FindCars />} />
                     <Route path="/favorite-cars" element={<FavoriteCars />} />

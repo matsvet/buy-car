@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ErrorComponent from '../../../Components/ErrorComponent';
 import React, { FC, useEffect, useState } from 'react';
 import classes from './Filters.module.scss';
+import { SaveOutlined } from '@ant-design/icons';
 
 type ResetFields = keyof Omit<IFilter, 'userId' | 'sorting'>;
 
@@ -260,11 +261,33 @@ export const Filters: FC = () => {
                   <Select.Option key="priceFromHigh">Убыванию цены</Select.Option>
                   <Select.Option key="dateFromNew">Сначала новые</Select.Option>
                   <Select.Option key="dateFromOld">Сначала старые</Select.Option>
-                  <Select.Option key="mileageFromLow">Возрастанию пробега</Select.Option>
+                  <Select.Option key="mileageFromLow">Возраст. пробега</Select.Option>
                   <Select.Option key="mileageFromHigh">Убыванию пробега</Select.Option>
                 </Select>
               </Tooltip>
+              <Tooltip title="Показывать по">
+                <Select
+                  placeholder="Кол-во"
+                  defaultValue={10}
+                  className={classes.root__sortBlock__selectShowBy}
+                  // onChange={(e) => {
+                  //   if (e === 'default') setSorting(null);
+                  //   else setSorting(e);
+                  // }}
+                  // defaultValue={filter?.sorting}
+                >
+                  <Select.Option
+                    key="default"
+                    // onClick={() => setSorting(null)}
+                  >
+                    10
+                  </Select.Option>
+                  <Select.Option key="priceFromLow">30</Select.Option>
+                  <Select.Option key="priceFromHigh">50</Select.Option>
+                </Select>
+              </Tooltip>
             </div>
+            <div className={classes.root__sortBlock}></div>
             <div className={classes.root__buttonsBlock}>
               <div className={classes.btn}>
                 <Button onClick={handleResetFilters} danger>
@@ -273,6 +296,13 @@ export const Filters: FC = () => {
               </div>
               <div className={classes.btn}>
                 <Button onClick={handleSubmit}>Применить фильтры</Button>
+              </div>
+              <div className={classes.btn}>
+                <Tooltip title="Сохранить фильтры">
+                  <Button onClick={handleSubmit}>
+                    <SaveOutlined />
+                  </Button>
+                </Tooltip>
               </div>
             </div>
           </div>

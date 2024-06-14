@@ -1,4 +1,5 @@
 import { BellOutlined, CarOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { FC } from 'react';
 import { selectUser } from '@state/user/selectors';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +15,7 @@ interface NavigationItem {
 
 interface IProps {
   currentPage: string;
-  pathname?: string;
+  location?: { pathname: string; key: string }; // TODO
 }
 
 const navigationItems: NavigationItem[] = [
@@ -23,7 +24,7 @@ const navigationItems: NavigationItem[] = [
   { path: '/login', label: 'Авторизация', Icon: UserOutlined },
 ];
 
-const Header: FC<IProps> = ({ currentPage, pathname }) => {
+const Header: FC<IProps> = ({ currentPage, location }) => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
 
@@ -33,18 +34,23 @@ const Header: FC<IProps> = ({ currentPage, pathname }) => {
         <CarOutlined />
         BuyCar
       </div>
-      <div className={classes.root__currentPage}>{currentPage}</div>
+      <SwitchTransition mode="out-in">
+        <CSSTransition key={location?.key} classNames="fade" timeout={200} appear={true}>
+          <div className={classes.root__currentPage}>{currentPage}</div>
+        </CSSTransition>
+      </SwitchTransition>
       <div className={classes.root__buttonsBlock}>
         {navigationItems.map((item) => (
           <div
             key={item.path}
             className={cn(
               classes.root__logo,
-              pathname === item.path && classes.root__logo__active,
+              location?.pathname === item.path && classes.root__logo__active,
               item.path === '/login' && !user && classes.root__logo__notAuthorized,
             )}
             onClick={() => navigate(item.path)}
           >
+            {console.log(location, location?.path, item.path, location?.path === item.path)}
             <item.Icon />
           </div>
         ))}

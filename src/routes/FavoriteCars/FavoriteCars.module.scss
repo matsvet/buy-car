@@ -24,3 +24,26 @@
     transition: 0.3s;
   }
 }
+
+.tab {
+  width: 50%;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.disabledRow {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  filter: blur(1px);
+  // pointer-events: none;
+}
+
+.disabledRow td {
+  opacity: 0.5; /* Полупрозрачность для дополнительного эффекта */
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}

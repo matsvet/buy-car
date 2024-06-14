@@ -10,11 +10,13 @@ export const GlobalStyle = createGlobalStyle`
 
 export const pageTitles: Record<string, string> = {
   '/find-cars': 'Поиск авто',
-  '/favorite-cars': 'Избранные авто',
+  '/favorite-cars': 'Избранные авто и сохраненные фильтры',
   '/compared-cars': 'Сравниваемые авто',
   '/home': 'Домашняя страница',
   '/notifications': 'Уведомления',
   '/settings': 'Настройки',
   '/login': 'Авторизация',
   '/incorrect-route': '404 Page Not Found',
+  '/estimation': 'Узнайте стоимость вашего авто',
+  '/news': 'О самом главном в мире авто',
 };

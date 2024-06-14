@@ -1,13 +1,14 @@
 import { AppDispatch } from '@store';
 import { Table } from 'antd';
 import { clickOnCompare, clickOnFavorite, fetchCompared } from '@state/cars/thunks';
-import { columns, locale } from '../FindCars/helpers';
+import { locale } from '../FindCars/helpers';
 import { selectCarsReducer } from '@state/cars/selectors';
 import { selectUser } from '@state/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorComponent from '../../Components/ErrorComponent';
 import React, { FC, useEffect } from 'react';
 import classes from './ComparedCars.module.scss';
+import { comparedColumns } from './helpers';
 
 export const ComparedCars: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -16,15 +17,17 @@ export const ComparedCars: FC = () => {
   const { comparedCars, loadingCompared, error } = useSelector(selectCarsReducer);
 
   const handleChangeFavorite = (carId: string) => {
-    dispatch(clickOnFavorite({ carId, userId: user?.uid }));
+    void dispatch(clickOnFavorite({ carId, userId: user?.uid }));
   };
 
   const handleChangeCompared = (carId: string) => {
-    dispatch(clickOnCompare({ carId, userId: user?.uid }));
+    void dispatch(clickOnCompare({ carId, userId: user?.uid }));
   };
 
   useEffect(() => {
-    if (user?.uid) dispatch(fetchCompared(user?.uid));
+    if (user?.uid) {
+      void dispatch(fetchCompared(user?.uid));
+    }
   }, [dispatch, user?.uid]);
 
   return (
@@ -32,7 +35,7 @@ export const ComparedCars: FC = () => {
       <div className={classes.root__tableContainer}>
         <ErrorComponent errorMessage={error} />
         <Table
-          columns={columns(handleChangeFavorite, handleChangeCompared)}
+          columns={comparedColumns(handleChangeFavorite, handleChangeCompared)}
           dataSource={comparedCars ?? undefined}
           locale={locale}
           loading={loadingCompared}

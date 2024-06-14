@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import React, { FC, useMemo } from 'react';
 import classes from './LeftSidebar.module.scss';
 import cn from 'classnames';
+import { selectFilterReducer } from '@state/filter/selectors';
 
 interface NavigationItem {
   path: string;
@@ -21,6 +22,7 @@ interface NavigationItem {
 
 interface NavigationItemProps extends NavigationItem {
   isActive: boolean;
+  disabled: boolean;
 }
 
 interface LeftSidebarProps {
@@ -37,12 +39,50 @@ const navigationItems: NavigationItem[] = [
 
 const NavigationItem: FC<NavigationItemProps> = ({ path, label, Icon, isActive }) => {
   const navigate = useNavigate();
-  const handleClick = () => navigate(path);
+  const handleClick = () => {
+    if (!isActive) navigate(path);
+  };
 
   const { totalItems, favoriteCars, comparedCars } = useSelector(selectCarsReducer);
+  const { filter, loading } = useSelector(selectFilterReducer);
+
+  const {
+    priceMin,
+    priceMax,
+    mileageMin,
+    mileageMax,
+    yearMin,
+    yearMax,
+    ownersCountMin,
+    ownersCountMax,
+    mark,
+    model,
+    settlement,
+    isShowroom,
+  } = filter ?? {};
+
+  let disabled = true;
+
+  if (
+    priceMin ||
+    priceMax ||
+    mileageMin ||
+    mileageMax ||
+    yearMin ||
+    yearMax ||
+    ownersCountMin ||
+    ownersCountMax ||
+    mark ||
+    model ||
+    settlement ||
+    isShowroom
+  ) {
+    disabled = false;
+  }
+
   let counter = null;
 
-  if (label === 'Поиск') counter = totalItems;
+  if (label === 'Поиск') counter = disabled ? null : totalItems;
   if (label === 'Избранное') counter = favoriteCars?.length;
   if (label === 'Сравнение') counter = comparedCars?.length;
 
@@ -60,7 +100,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ path, label, Icon, isActive }
       </div>
       <div className={classes.root__buttonsBlock__option__counter}>
         <Tooltip title="Количество объявлений" placement="bottom">
-          {isActive && counter !== null ? counter : null}
+          {isActive && !loading && counter !== null ? counter : null}
         </Tooltip>
       </div>
     </div>
@@ -74,8 +114,20 @@ const LeftSidebar: FC<LeftSidebarProps> = ({ pathname }) => {
     <div className={classes.root}>
       <div className={classes.root__buttonsBlock}>
         {navigationItems.map((item) => (
-          <NavigationItem key={item.path} {...item} isActive={item.path === activeItem?.path} />
+          <NavigationItem
+            key={item.path}
+            {...item}
+            isActive={item.path === activeItem?.path}
+            disabled={false}
+          />
         ))}
+      </div>
+      <div className={classes.root__infoBlock}>
+        Агрегатор объявлений
+        <br />
+        <div style={{ textAlign: 'end', fontFamily: 'Courier New, Courier, monospace' }}>
+          о продаже автомобилей
+        </div>
       </div>
     </div>
   );
